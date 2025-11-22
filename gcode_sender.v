@@ -6,8 +6,9 @@ module gcode_sender(
     output reg [7:0] tx_data
 );
 
-    reg [7:0] gcode_bytes [17:0];
+    reg [7:0] gcode_bytes [0:17];
     reg [5:0] index;
+
     initial begin
         gcode_bytes[0] = "G";
         gcode_bytes[1] = "9";
@@ -29,18 +30,17 @@ module gcode_sender(
         gcode_bytes[17] = "\n";
     end
 
-    always(@posedge clk) begin
-        if(reset) begin
-            index <=0;
-            tx_valid <=0;
+    always @(posedge clk) begin
+        if (reset) begin
+            index <= 0;
+            tx_valid <= 0;
         end else begin
-            if(tx_ready & !tx_valid) begin
+            if (tx_ready && !tx_valid) begin
                 tx_data <= gcode_bytes[index];
-                tx_valid <=1;
-                index <= index +1;
-            end
-            else begin
-                tx_valid <=0;
+                tx_valid <= 1;
+                index <= index + 1;
+            end else begin
+                tx_valid <= 0;
             end
         end
     end
