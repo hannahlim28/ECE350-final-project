@@ -87,33 +87,38 @@ module uart_tx #(
                     if (bit_done) begin
                         cycle_counter <= 0;
                         shifter <= {1'b0, shifter[PAYLOAD_BITS-1:1]};
-                        bit_counter <= bit_counter + 1;
 
-                        if (bit_counter == PAYLOAD_BITS-1)
+                        if (bit_counter == PAYLOAD_BITS-1) begin
+                            bit_counter <= 0;   // ✅ reset before STOP
                             state <= STOP;
+                        end else begin
+                            bit_counter <= bit_counter + 1;
+                        end
 
                     end else begin
                         cycle_counter <= cycle_counter + 1;
                     end
                 end
 
-                // ---------------------------------------------
-                // STOP bit (1)
-                // ---------------------------------------------
+
                 STOP: begin
                     txd_reg <= 1'b1;
 
                     if (bit_done) begin
                         cycle_counter <= 0;
-                        bit_counter <= bit_counter + 1;
 
-                        if (bit_counter == STOP_BITS-1)
-                            state <= IDLE;
+                        if (bit_counter == STOP_BITS-1) begin
+                            bit_counter <= 0;
+                            state <= IDLE;      // ✅ done with stop bits
+                        end else begin
+                            bit_counter <= bit_counter + 1;
+                        end
 
                     end else begin
                         cycle_counter <= cycle_counter + 1;
                     end
                 end
+
 
             endcase
         end
