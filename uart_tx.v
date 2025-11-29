@@ -109,7 +109,7 @@ module uart_tx #(
 
                         if (bit_counter == STOP_BITS-1) begin
                             bit_counter <= 0;
-                            state <= IDLE;      // ✅ done with stop bits
+                            state <= IDLE;    
                         end else begin
                             bit_counter <= bit_counter + 1;
                         end
