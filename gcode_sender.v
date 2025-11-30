@@ -1,10 +1,10 @@
 module gcode_sender(
-    input wire baud_clk,
     input wire clk,
     input wire reset,
     input wire tx_ready,
     output reg tx_valid,
-    output reg [7:0] tx_data
+    output reg [7:0] tx_data,
+    input wire rx
 );
 
     reg [7:0] gcode_bytes [0:17];
@@ -32,28 +32,26 @@ module gcode_sender(
         gcode_bytes[16] = "0";
         gcode_bytes[17] = "\n";
     end
-
     always @(posedge clk) begin
-        if (reset) begin
-            index <= 0;
-            tx_valid <= 0;   
-        end 
-    end
-    always @(posedge baud_clk) begin
         prev_ready <= tx_ready;
-        if(first_cycle) begin
+        if(!reset && first_cycle) begin
             see_ready <= tx_ready;
             first_cycle <=0;
         end else begin
             see_ready <= ~prev_ready & tx_ready;
         end
     end
-    always @(posedge baud_clk) begin
-        tx_valid <=0;
-        if (!reset && see_ready) begin
-            tx_data <= gcode_bytes[index];
-            tx_valid <= 1;
-            index <= index + 1;
+    always @(posedge clk) begin
+        if (reset) begin
+            index <= 0;
+            tx_valid <= 0;   
+        end else begin
+            tx_valid <=0;
+            if (!reset && see_ready && ~rx) begin
+                tx_data <= gcode_bytes[index];
+                tx_valid <= 1;
+                index <= index + 1;
+            end
         end
     end
 

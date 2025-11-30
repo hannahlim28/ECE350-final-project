@@ -2,9 +2,9 @@
 
 module send_tx_tb;
     reg clk, reset;
-    wire tx;
+    wire tx, rx;
 
-    sending_tx transmitTest(.clk(clk), .reset(reset), .tx(tx));
+    sending_tx transmitTest(.clk(clk), .reset(reset), .tx(tx), .rx(rx));
 
     initial begin
         clk = 0;
@@ -15,6 +15,7 @@ module send_tx_tb;
         #100;
         reset = 0;
     end
+    assign rx = 0;
     initial begin
         #1000000;
         $finish;

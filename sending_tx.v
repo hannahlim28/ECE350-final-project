@@ -1,7 +1,8 @@
 module sending_tx(
     input wire clk,
     input wire reset,
-    output wire tx
+    output wire tx,
+    input wire rx
 );
 
     wire uart_tx_busy;
@@ -17,7 +18,7 @@ module sending_tx(
             .tx_busy(uart_tx_busy), 
             .tx_start(tx_valid), 
             .tx_data(test_letter),
-            .baud_clk(baud_clk));
+            .rx(rx));
 
     // always @(posedge clk) begin
     //     if (!uart_tx_busy) begin
@@ -27,9 +28,9 @@ module sending_tx(
     //     end
     // end
     gcode_sender getting_gcode(.clk(clk), 
-            .baud_clk(baud_clk),
             .reset(reset),
             .tx_ready(!uart_tx_busy),
             .tx_valid(tx_valid),
-            .tx_data(test_letter));
+            .tx_data(test_letter),
+            .rx(rx));
 endmodule
