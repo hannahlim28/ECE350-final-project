@@ -8,8 +8,7 @@ module uart_transmit #(
     output wire tx_send,
     output wire tx_busy,
     input wire tx_start,
-    input wire [7:0] tx_data,
-    input wire rx
+    input wire [7:0] tx_data
 );
     localparam CYCLES_PER_BIT = CLK_HZ/BAUD_RT;
     localparam COUNT_CYC_BITS = $clog2(CYCLES_PER_BIT);

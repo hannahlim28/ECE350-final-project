@@ -1,8 +1,7 @@
 module sending_tx(
     input wire clk,
     input wire reset,
-    output wire tx,
-    input wire rx
+    output wire tx
 );
 
     wire uart_tx_busy;
@@ -17,8 +16,7 @@ module sending_tx(
             .tx_send(tx), 
             .tx_busy(uart_tx_busy), 
             .tx_start(tx_valid), 
-            .tx_data(test_letter),
-            .rx(rx));
+            .tx_data(test_letter));
 
     // always @(posedge clk) begin
     //     if (!uart_tx_busy) begin
@@ -31,6 +29,5 @@ module sending_tx(
             .reset(reset),
             .tx_ready(!uart_tx_busy),
             .tx_valid(tx_valid),
-            .tx_data(test_letter),
-            .rx(rx));
+            .tx_data(test_letter));
 endmodule
