@@ -1,0 +1,17 @@
+---
+triple:          'x86_64-apple-darwin'
+binary-path:     '/Users/hannahlim/Documents/ECE350/ECE350-final-project/edge_to_vect'
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _LineArray_init, symObjAddr: 0x0, symBinAddr: 0x100000DC0, symSize: 0x30 }
+  - { offsetInCU: 0x4D, offset: 0x4D, size: 0x8, addend: 0x0, symName: _DIRS, symObjAddr: 0x1040, symBinAddr: 0x100001E30, symSize: 0x0 }
+  - { offsetInCU: 0x74, offset: 0x74, size: 0x8, addend: 0x0, symName: _LineArray_init, symObjAddr: 0x0, symBinAddr: 0x100000DC0, symSize: 0x30 }
+  - { offsetInCU: 0x98, offset: 0x98, size: 0x8, addend: 0x0, symName: _LineArray_add, symObjAddr: 0x30, symBinAddr: 0x100000DF0, symSize: 0xD0 }
+  - { offsetInCU: 0xE6, offset: 0xE6, size: 0x8, addend: 0x0, symName: _PointArray_free, symObjAddr: 0x100, symBinAddr: 0x100000EC0, symSize: 0x50 }
+  - { offsetInCU: 0x10A, offset: 0x10A, size: 0x8, addend: 0x0, symName: _LineArray_free, symObjAddr: 0x150, symBinAddr: 0x100000F10, symSize: 0x80 }
+  - { offsetInCU: 0x14A, offset: 0x14A, size: 0x8, addend: 0x0, symName: _PointArray_init, symObjAddr: 0x1D0, symBinAddr: 0x100000F90, symSize: 0x30 }
+  - { offsetInCU: 0x16E, offset: 0x16E, size: 0x8, addend: 0x0, symName: _PointArray_add, symObjAddr: 0x200, symBinAddr: 0x100000FC0, symSize: 0xB0 }
+  - { offsetInCU: 0x1BC, offset: 0x1BC, size: 0x8, addend: 0x0, symName: _in_bounds, symObjAddr: 0x2B0, symBinAddr: 0x100001070, symSize: 0x60 }
+  - { offsetInCU: 0x20E, offset: 0x20E, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x310, symBinAddr: 0x1000010D0, symSize: 0x6C0 }
+  - { offsetInCU: 0x4C6, offset: 0x4C6, size: 0x8, addend: 0x0, symName: _edge_to_vect, symObjAddr: 0x9D0, symBinAddr: 0x100001790, symSize: 0x3E0 }
+  - { offsetInCU: 0x646, offset: 0x646, size: 0x8, addend: 0x0, symName: _find_lines, symObjAddr: 0xDB0, symBinAddr: 0x100001B70, symSize: 0x21F }
+...

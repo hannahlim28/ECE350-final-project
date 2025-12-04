@@ -13,7 +13,7 @@ DIRS = [
 ]
 
 # CHECK IF STILL IN IMAGE
-def is_edge(x, y, edge_map):
+def is_inside(x, y, H, W):
     return 0 <= x < edge_map.shape[0] and 0 <= y < edge_map.shape[1] and edge_map[x, y] == 1
 
 def edge_to_segments(edge_map):
