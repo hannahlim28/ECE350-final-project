@@ -1,14 +1,21 @@
 `timescale 1ns/1ps
 
 module send_tx_tb;
-    reg clk, reset;
+    reg clk, reset, BTNU;
     wire tx, rx;
 
-    sending_tx transmitTest(.clk(clk), .reset(reset), .tx(tx));
+    sending_tx transmitTest(.clk(clk), .reset(reset), .tx(tx), .BTNU(BTNU));
 
     initial begin
         clk = 0;
         forever #5 clk = ~clk;
+    end
+    initial begin
+        BTNU = 0;
+        repeat(20) @(posedge clk);
+        BTNU = 1;
+        repeat (5) @(posedge clk);
+        BTNU = 0;
     end
     initial begin
         #1000000;
