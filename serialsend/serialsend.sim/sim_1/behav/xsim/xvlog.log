@@ -1,0 +1,13 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/rm519/Downloads/float_to_ascii.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module float_to_ascii
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/rm519/Downloads/gcode_sender.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module gcode_sender
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/rm519/Downloads/sending_tx.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sending_tx
+WARNING: [VRFC 10-3380] identifier 'bup' is used before its declaration [C:/Users/rm519/Downloads/sending_tx.v:8]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/rm519/Documents/serialSendTest/serialSendTest.srcs/sources_1/imports/Downloads/uart_transmit.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_transmit
+WARNING: [VRFC 10-3380] identifier 'IDLE' is used before its declaration [C:/Users/rm519/Documents/serialSendTest/serialSendTest.srcs/sources_1/imports/Downloads/uart_transmit.v:18]
+WARNING: [VRFC 10-3380] identifier 'IDLE' is used before its declaration [C:/Users/rm519/Documents/serialSendTest/serialSendTest.srcs/sources_1/imports/Downloads/uart_transmit.v:24]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/rm519/Downloads/send_tx_tb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module send_tx_tb

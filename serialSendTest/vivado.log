@@ -2,33 +2,19 @@
 # Vivado v2021.1 (64-bit)
 # SW Build 3247384 on Thu Jun 10 19:36:33 MDT 2021
 # IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
-# Start of session at: Thu Dec  4 23:33:05 2025
-# Process ID: 17056
+# Start of session at: Fri Dec  5 16:34:32 2025
+# Process ID: 24076
 # Current directory: C:/Users/rm519/Documents/ECE350-final-project/serialSendTest
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent12492 C:\Users\rm519\Documents\ECE350-final-project\serialSendTest\serialSendTest.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent21116 C:\Users\rm519\Documents\ECE350-final-project\serialSendTest\serialSendTest.xpr
 # Log file: C:/Users/rm519/Documents/ECE350-final-project/serialSendTest/vivado.log
 # Journal file: C:/Users/rm519/Documents/ECE350-final-project/serialSendTest\vivado.jou
 #-----------------------------------------------------------
 start_gui
 open_project C:/Users/rm519/Documents/ECE350-final-project/serialSendTest/serialSendTest.xpr
-INFO: [Project 1-313] Project file moved from 'C:/Users/rm519/Documents/serialSendTest' since last save.
-WARNING: [filemgmt 56-2] Default IP Output Path : Could not find the directory 'C:/Users/rm519/Documents/ECE350-final-project/serialSendTest/serialSendTest.gen/sources_1', nor could it be found using path 'C:/Users/rm519/Documents/serialSendTest/serialSendTest.gen/sources_1'.
-WARNING: [Project 1-312] File not found as 'C:/Users/rm519/Documents/Downloads/float_to_ascii.v'; using path 'C:/Users/rm519/Downloads/float_to_ascii.v' instead.
-WARNING: [Project 1-312] File not found as 'C:/Users/rm519/Documents/Downloads/gcode_sender.v'; using path 'C:/Users/rm519/Downloads/gcode_sender.v' instead.
-WARNING: [Project 1-312] File not found as 'C:/Users/rm519/Documents/Downloads/sending_tx.v'; using path 'C:/Users/rm519/Downloads/sending_tx.v' instead.
-WARNING: [Project 1-312] File not found as 'C:/Users/rm519/Documents/Downloads/send_tx_tb.v'; using path 'C:/Users/rm519/Downloads/send_tx_tb.v' instead.
+WARNING: [filemgmt 56-3] Default IP Output Path : Could not find the directory 'C:/Users/rm519/Documents/ECE350-final-project/serialSendTest/serialSendTest.gen/sources_1'.
 Scanning sources...
 Finished scanning sources
-WARNING: [Project 1-312] File not found as 'C:/Users/rm519/Documents/Downloads/float_to_ascii.v'; using path 'C:/Users/rm519/Downloads/float_to_ascii.v' instead.
-WARNING: [Project 1-312] File not found as 'C:/Users/rm519/Documents/Downloads/gcode_sender.v'; using path 'C:/Users/rm519/Downloads/gcode_sender.v' instead.
-WARNING: [Project 1-312] File not found as 'C:/Users/rm519/Documents/Downloads/sending_tx.v'; using path 'C:/Users/rm519/Downloads/sending_tx.v' instead.
-WARNING: [Project 1-312] File not found as 'C:/Users/rm519/Documents/Downloads/float_to_ascii.v'; using path 'C:/Users/rm519/Downloads/float_to_ascii.v' instead.
-WARNING: [Project 1-312] File not found as 'C:/Users/rm519/Documents/Downloads/gcode_sender.v'; using path 'C:/Users/rm519/Downloads/gcode_sender.v' instead.
-WARNING: [Project 1-312] File not found as 'C:/Users/rm519/Documents/Downloads/sending_tx.v'; using path 'C:/Users/rm519/Downloads/sending_tx.v' instead.
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2021.1/data/ip'.
-open_project: Time (s): cpu = 00:00:12 ; elapsed = 00:00:05 . Memory (MB): peak = 1329.277 ; gain = 0.000
-update_compile_order -fileset sources_1
-exit
-INFO: [Common 17-206] Exiting Vivado at Thu Dec  4 23:33:34 2025...
+open_project: Time (s): cpu = 00:00:12 ; elapsed = 00:00:05 . Memory (MB): peak = 1329.461 ; gain = 0.000
