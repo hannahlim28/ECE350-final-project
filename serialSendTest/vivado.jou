@@ -2,13 +2,13 @@
 # Vivado v2021.1 (64-bit)
 # SW Build 3247384 on Thu Jun 10 19:36:33 MDT 2021
 # IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
-# Start of session at: Thu Dec  4 23:29:09 2025
-# Process ID: 11200
-# Current directory: C:/Users/rm519/Documents/serialSendTest
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent6280 C:\Users\rm519\Documents\serialSendTest\serialSendTest.xpr
-# Log file: C:/Users/rm519/Documents/serialSendTest/vivado.log
-# Journal file: C:/Users/rm519/Documents/serialSendTest\vivado.jou
+# Start of session at: Thu Dec  4 23:33:05 2025
+# Process ID: 17056
+# Current directory: C:/Users/rm519/Documents/ECE350-final-project/serialSendTest
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent12492 C:\Users\rm519\Documents\ECE350-final-project\serialSendTest\serialSendTest.xpr
+# Log file: C:/Users/rm519/Documents/ECE350-final-project/serialSendTest/vivado.log
+# Journal file: C:/Users/rm519/Documents/ECE350-final-project/serialSendTest\vivado.jou
 #-----------------------------------------------------------
 start_gui
-open_project C:/Users/rm519/Documents/serialSendTest/serialSendTest.xpr
+open_project C:/Users/rm519/Documents/ECE350-final-project/serialSendTest/serialSendTest.xpr
 update_compile_order -fileset sources_1
