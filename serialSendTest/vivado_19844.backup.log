@@ -1,0 +1,532 @@
+#-----------------------------------------------------------
+# Vivado v2021.1 (64-bit)
+# SW Build 3247384 on Thu Jun 10 19:36:33 MDT 2021
+# IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
+# Start of session at: Thu Dec  4 11:40:17 2025
+# Process ID: 19844
+# Current directory: C:/Users/rm519/Documents/serialSendTest
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent23492 C:\Users\rm519\Documents\serialSendTest\serialSendTest.xpr
+# Log file: C:/Users/rm519/Documents/serialSendTest/vivado.log
+# Journal file: C:/Users/rm519/Documents/serialSendTest\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/rm519/Documents/serialSendTest/serialSendTest.xpr
+INFO: [Project 1-313] Project file moved from 'C:/Users/hhl6/Documents/serialSendTest' since last save.
+WARNING: [filemgmt 56-2] Default IP Output Path : Could not find the directory 'C:/Users/rm519/Documents/serialSendTest/serialSendTest.gen/sources_1', nor could it be found using path 'C:/Users/hhl6/Documents/serialSendTest/serialSendTest.gen/sources_1'.
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2021.1/data/ip'.
+open_project: Time (s): cpu = 00:00:14 ; elapsed = 00:00:06 . Memory (MB): peak = 1329.426 ; gain = 0.000
+update_compile_order -fileset sources_1
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1
+
+launch_runs synth_1
+[Thu Dec  4 11:42:22 2025] Launched synth_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1/runme.log
+launch_runs impl_1
+[Thu Dec  4 11:44:25 2025] Launched impl_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/runme.log
+launch_runs impl_1 -to_step write_bitstream
+[Thu Dec  4 11:45:47 2025] Launched impl_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/runme.log
+open_hw_manager
+connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2021.1
+  **** Build date : Jun 10 2021 at 20:17:23
+    ** Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:3042
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+
+******** Xilinx cs_server v2021.1
+  ****** Build date   : May 26 2021-13:32:33
+    **** Build number : 2021.1.1622050353
+      ** Copyright 2017-2025 Xilinx, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:01 ; elapsed = 00:00:12 . Memory (MB): peak = 1329.426 ; gain = 0.000
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292B30788A
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1
+
+launch_runs synth_1
+[Thu Dec  4 11:50:07 2025] Launched synth_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1/runme.log
+launch_runs impl_1
+[Thu Dec  4 11:51:37 2025] Launched impl_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/runme.log
+launch_runs impl_1 -to_step write_bitstream
+[Thu Dec  4 11:52:53 2025] Launched impl_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1
+
+launch_runs synth_1
+[Thu Dec  4 11:59:12 2025] Launched synth_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1/runme.log
+launch_runs impl_1
+[Thu Dec  4 12:00:11 2025] Launched impl_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/runme.log
+launch_runs impl_1 -to_step write_bitstream
+[Thu Dec  4 12:03:51 2025] Launched impl_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/runme.log
+open_run impl_1
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 3309.129 ; gain = 0.000
+INFO: [Project 1-479] Netlist was created with Vivado 2021.1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+Reading XDEF placement.
+Reading placer database...
+Reading XDEF routing.
+Read XDEF File: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.023 . Memory (MB): peak = 4005.211 ; gain = 0.000
+Restored from archive | CPU: 0.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.023 . Memory (MB): peak = 4005.211 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 4005.211 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+open_run: Time (s): cpu = 00:00:16 ; elapsed = 00:00:12 . Memory (MB): peak = 4124.047 ; gain = 1105.328
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices -disable_eos_check [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210292B30788A
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292B30788A
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+close_hw_manager
+close_design
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1
+
+launch_runs impl_1 -to_step write_bitstream
+[Thu Dec  4 15:40:01 2025] Launched synth_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1/runme.log
+[Thu Dec  4 15:40:01 2025] Launched impl_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/runme.log
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1
+
+launch_runs synth_1
+[Thu Dec  4 15:42:24 2025] Launched synth_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1/runme.log
+launch_runs impl_1
+[Thu Dec  4 15:42:55 2025] Launched impl_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/runme.log
+launch_runs impl_1 -to_step write_bitstream
+[Thu Dec  4 15:43:46 2025] Launched impl_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/runme.log
+open_hw_manager
+connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2021.1
+  **** Build date : Jun 10 2021 at 20:17:23
+    ** Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:3042
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+
+******** Xilinx cs_server v2021.1
+  ****** Build date   : May 26 2021-13:32:33
+    **** Build number : 2021.1.1622050353
+      ** Copyright 2017-2025 Xilinx, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:00 ; elapsed = 00:00:10 . Memory (MB): peak = 4146.016 ; gain = 0.000
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292B30788A
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210292B30788A
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292B30788A
+INFO: [Labtools 27-1435] Device xc7a100t (JTAG device index = 0) is not programmed (DONE status = 0).
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1
+
+launch_runs synth_1
+[Thu Dec  4 15:48:47 2025] Launched synth_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1/runme.log
+launch_runs impl_1
+[Thu Dec  4 15:49:32 2025] Launched impl_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/runme.log
+launch_runs impl_1 -to_step write_bitstream
+[Thu Dec  4 15:50:27 2025] Launched impl_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1
+
+launch_runs synth_1
+[Thu Dec  4 15:52:12 2025] Launched synth_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1/runme.log
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1
+
+launch_runs synth_1
+[Thu Dec  4 15:53:06 2025] Launched synth_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1/runme.log
+launch_runs impl_1
+[Thu Dec  4 15:53:40 2025] Launched impl_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/runme.log
+launch_runs impl_1 -to_step write_bitstream
+[Thu Dec  4 15:54:57 2025] Launched impl_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1
+
+launch_runs impl_1 -to_step write_bitstream
+[Thu Dec  4 15:56:33 2025] Launched synth_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1/runme.log
+[Thu Dec  4 15:56:33 2025] Launched impl_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/runme.log
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210292B30788A
+disconnect_hw_server localhost:3121
+connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:3042
+INFO: [Labtools 27-3414] Connected to existing cs_server.
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292B30788A
+ERROR: [Labtools 27-2269] No devices detected on target localhost:3121/xilinx_tcf/Digilent/210292B30788A.
+Check cable connectivity and that the target board is powered up then
+use the disconnect_hw_server and connect_hw_server to re-register this hardware target.
+ERROR: [Common 17-39] 'open_hw_target' failed due to earlier errors.
+INFO: [Labtools 27-1435] Device xc7a100t (JTAG device index = 0) is not programmed (DONE status = 0).
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210292B30788A
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292B30788A
+INFO: [Labtools 27-1435] Device xc7a100t (JTAG device index = 0) is not programmed (DONE status = 0).
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+close_hw_manager
+open_hw_manager
+connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2021.1
+  **** Build date : Jun 10 2021 at 20:17:23
+    ** Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:3042
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+
+******** Xilinx cs_server v2021.1
+  ****** Build date   : May 26 2021-13:32:33
+    **** Build number : 2021.1.1622050353
+      ** Copyright 2017-2025 Xilinx, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:00 ; elapsed = 00:00:09 . Memory (MB): peak = 4146.016 ; gain = 0.000
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292B30788A
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+reset_run impl_1 -prev_step 
+launch_runs impl_1 -to_step write_bitstream
+WARNING: [Vivado 12-872] Run step 'Design Initialization' is out-of-date.
+[Thu Dec  4 17:03:15 2025] Launched impl_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1
+
+launch_runs impl_1 -to_step write_bitstream
+[Thu Dec  4 17:06:18 2025] Launched synth_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1/runme.log
+[Thu Dec  4 17:06:18 2025] Launched impl_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+reset_run impl_1 -prev_step 
+launch_runs impl_1 -to_step write_bitstream
+WARNING: [Vivado 12-872] Run step 'Design Initialization' is out-of-date.
+[Thu Dec  4 17:09:07 2025] Launched impl_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+close_hw_manager
+add_files -norecurse C:/Users/rm519/Downloads/gcode_sender.v
+update_compile_order -fileset sources_1
+export_ip_user_files -of_objects  [get_files C:/Users/rm519/Documents/serialSendTest/serialSendTest.srcs/sources_1/imports/Downloads/gcode_sender.v] -no_script -reset -force -quiet
+remove_files  C:/Users/rm519/Documents/serialSendTest/serialSendTest.srcs/sources_1/imports/Downloads/gcode_sender.v
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1
+
+launch_runs impl_1 -to_step write_bitstream
+[Thu Dec  4 18:13:49 2025] Launched synth_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1/runme.log
+[Thu Dec  4 18:13:49 2025] Launched impl_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/runme.log
+open_hw_manager
+connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2021.1
+  **** Build date : Jun 10 2021 at 20:17:23
+    ** Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:3042
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+
+******** Xilinx cs_server v2021.1
+  ****** Build date   : May 26 2021-13:32:33
+    **** Build number : 2021.1.1622050353
+      ** Copyright 2017-2025 Xilinx, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:00 ; elapsed = 00:00:09 . Memory (MB): peak = 4146.016 ; gain = 0.000
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292B30788A
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210292B30788A
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292B30788A
+INFO: [Labtools 27-1435] Device xc7a100t (JTAG device index = 0) is not programmed (DONE status = 0).
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+reset_run impl_1 -prev_step 
+launch_runs impl_1 -to_step write_bitstream
+WARNING: [Vivado 12-872] Run step 'Design Initialization' is out-of-date.
+[Thu Dec  4 18:19:22 2025] Launched impl_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1
+
+launch_runs impl_1 -to_step write_bitstream
+[Thu Dec  4 18:25:01 2025] Launched synth_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1/runme.log
+[Thu Dec  4 18:25:01 2025] Launched impl_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210292B30788A
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292B30788A
+INFO: [Labtools 27-1435] Device xc7a100t (JTAG device index = 0) is not programmed (DONE status = 0).
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/sending_tx.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210292B30788A
+close_hw_manager
+export_ip_user_files -of_objects  [get_files C:/Users/rm519/Downloads/gcode_sender.v] -no_script -reset -force -quiet
+remove_files  C:/Users/rm519/Downloads/gcode_sender.v
+add_files -norecurse C:/Users/rm519/Downloads/gcode_sender.v
+update_compile_order -fileset sources_1
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1
+
+launch_runs impl_1 -to_step write_bitstream
+[Thu Dec  4 21:00:43 2025] Launched synth_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1/runme.log
+[Thu Dec  4 21:00:43 2025] Launched impl_1...
+Run output will be captured here: C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/impl_1/runme.log
+add_files -norecurse C:/Users/rm519/Downloads/float_to_ascii.v
+update_compile_order -fileset sources_1
+export_ip_user_files -of_objects  [get_files C:/Users/rm519/Downloads/gcode_sender.v] -no_script -reset -force -quiet
+remove_files  C:/Users/rm519/Downloads/gcode_sender.v
+update_compile_order -fileset sources_1
+add_files -norecurse C:/Users/rm519/Downloads/gcode_sender.v
+update_compile_order -fileset sources_1
+export_ip_user_files -of_objects  [get_files C:/Users/rm519/Downloads/gcode_sender.v] -no_script -reset -force -quiet
+remove_files  C:/Users/rm519/Downloads/gcode_sender.v
+export_ip_user_files -of_objects  [get_files C:/Users/rm519/Documents/serialSendTest/serialSendTest.srcs/sources_1/imports/Downloads/sending_tx.v] -no_script -reset -force -quiet
+remove_files  C:/Users/rm519/Documents/serialSendTest/serialSendTest.srcs/sources_1/imports/Downloads/sending_tx.v
+update_compile_order -fileset sources_1
+add_files -norecurse {C:/Users/rm519/Downloads/gcode_sender.v C:/Users/rm519/Downloads/sending_tx.v}
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+set_property is_enabled false [get_files  C:/Users/rm519/Downloads/gcode_sender.v]
+update_compile_order -fileset sources_1
+add_files -norecurse C:/Users/rm519/Downloads/gcode_sender.v
+WARNING: [filemgmt 56-12] File 'C:/Users/rm519/Downloads/gcode_sender.v' cannot be added to the project because it already exists in the project, skipping this file
+add_files -norecurse C:/Users/rm519/Downloads/gcode_sender.v
+WARNING: [filemgmt 56-12] File 'C:/Users/rm519/Downloads/gcode_sender.v' cannot be added to the project because it already exists in the project, skipping this file
+export_ip_user_files -of_objects  [get_files C:/Users/rm519/Downloads/gcode_sender.v] -no_script -reset -force -quiet
+remove_files  C:/Users/rm519/Downloads/gcode_sender.v
+add_files -norecurse C:/Users/rm519/Downloads/gcode_sender.v
+update_compile_order -fileset sources_1
+update_files -from_files C:/Users/rm519/Downloads/gcode_sender.v -to_files C:/Users/rm519/Downloads/gcode_sender.v -filesets [get_filesets *]
+ERROR: [Vivado 12-3481] Cannot replace a file with itself: 'C:/Users/rm519/Downloads/gcode_sender.v'
+exit
+INFO: [Common 17-206] Exiting Vivado at Thu Dec  4 21:06:52 2025...

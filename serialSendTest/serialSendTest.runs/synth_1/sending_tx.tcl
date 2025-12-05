@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "C:/Users/hhl6/Documents/serialSendTest/serialSendTest.runs/synth_1/sending_tx.tcl"
+  variable script "C:/Users/rm519/Documents/serialSendTest/serialSendTest.runs/synth_1/sending_tx.tcl"
   variable category "vivado_synth"
 }
 
@@ -70,26 +70,28 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
-set_param chipscope.maxJobs 3
+set_param chipscope.maxJobs 1
 set_param xicom.use_bs_reader 1
+set_msg_config -id {Common 17-41} -limit 10000000
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a100tcsg324-1
 
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
-set_property webtalk.parent_dir C:/Users/hhl6/Documents/serialSendTest/serialSendTest.cache/wt [current_project]
-set_property parent.project_path C:/Users/hhl6/Documents/serialSendTest/serialSendTest.xpr [current_project]
+set_property webtalk.parent_dir C:/Users/rm519/Documents/serialSendTest/serialSendTest.cache/wt [current_project]
+set_property parent.project_path C:/Users/rm519/Documents/serialSendTest/serialSendTest.xpr [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property ip_output_repo c:/Users/hhl6/Documents/serialSendTest/serialSendTest.cache/ip [current_project]
+set_property ip_output_repo c:/Users/rm519/Documents/serialSendTest/serialSendTest.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib {
-  C:/Users/hhl6/Documents/serialSendTest/serialSendTest.srcs/sources_1/imports/Downloads/gcode_sender.v
-  C:/Users/hhl6/Documents/serialSendTest/serialSendTest.srcs/sources_1/imports/Downloads/uart_transmit.v
-  C:/Users/hhl6/Documents/serialSendTest/serialSendTest.srcs/sources_1/imports/Downloads/sending_tx.v
+  C:/Users/rm519/Downloads/float_to_ascii.v
+  C:/Users/rm519/Downloads/gcode_sender.v
+  C:/Users/rm519/Documents/serialSendTest/serialSendTest.srcs/sources_1/imports/Downloads/uart_transmit.v
+  C:/Users/rm519/Downloads/sending_tx.v
 }
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -100,8 +102,8 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc C:/Users/hhl6/Documents/serialSendTest/serialSendTest.srcs/constrs_1/imports/Downloads/master.xdc
-set_property used_in_implementation false [get_files C:/Users/hhl6/Documents/serialSendTest/serialSendTest.srcs/constrs_1/imports/Downloads/master.xdc]
+read_xdc C:/Users/rm519/Documents/serialSendTest/serialSendTest.srcs/constrs_1/imports/Downloads/master.xdc
+set_property used_in_implementation false [get_files C:/Users/rm519/Documents/serialSendTest/serialSendTest.srcs/constrs_1/imports/Downloads/master.xdc]
 
 set_param ips.enableIPCacheLiteLoad 1
 close [open __synthesis_is_running__ w]

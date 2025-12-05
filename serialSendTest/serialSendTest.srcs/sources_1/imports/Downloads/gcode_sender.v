@@ -12,24 +12,25 @@ module gcode_sender(
     reg prev_ready = 0;
     reg see_ready = 0;
     initial begin
-        gcode_bytes[0] = "G";
-        gcode_bytes[1] = "9";
-        gcode_bytes[2] = "0";
-        gcode_bytes[3] = "\n";
-        gcode_bytes[4] = "G";
-        gcode_bytes[5] = "2";
-        gcode_bytes[6] = "1";
-        gcode_bytes[7] = "\n";
-        gcode_bytes[8] = "G";
-        gcode_bytes[9] = "1";
-        gcode_bytes[10] = " ";
-        gcode_bytes[11] = "X";
-        gcode_bytes[12] = "0";
-        gcode_bytes[13] = " ";
-        gcode_bytes[14] = "Y";
-        gcode_bytes[15] = "1";
-        gcode_bytes[16] = "0";
-        gcode_bytes[17] = "\n";
+        gcode_bytes[0] = "$";
+        gcode_bytes[1] = "X";
+        gcode_bytes[2] = "\n";
+        gcode_bytes[3] = "F";
+        gcode_bytes[4] = "1";
+        gcode_bytes[5] = "0";
+        gcode_bytes[6] = "0";
+        gcode_bytes[7] = "0";
+        gcode_bytes[8] = "\n";
+        gcode_bytes[9] = "G";
+        gcode_bytes[10] = "0";
+        gcode_bytes[11] = " ";
+        gcode_bytes[12] = "X";
+        gcode_bytes[13] = "0";
+        gcode_bytes[14] = " ";
+        gcode_bytes[15] = "Y";
+        gcode_bytes[16] = "1";
+        gcode_bytes[17] = "0";
+        gcode_bytes[18] = "\n";
     end
     always @(posedge clk) begin
         prev_ready <= tx_ready;
@@ -46,7 +47,7 @@ module gcode_sender(
             tx_valid <= 0; 
         end else begin
             tx_valid <=0;
-            if (see_ready) begin
+            if (see_ready && index != 18) begin
                 tx_data <= gcode_bytes[index];
                 tx_valid <= 1;
                 index <= index + 1;

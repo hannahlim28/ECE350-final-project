@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<webTalkData  fileName='usage_statistics_ext_xsim.xml'  majorVersion='1' minorVersion='0' timeStamp='Sun Nov 30 13:48:50 2025'>
+<webTalkData  fileName='usage_statistics_ext_xsim.xml'  majorVersion='1' minorVersion='0' timeStamp='Thu Dec  4 21:47:19 2025'>
 <section name="__ROOT__" level="0" order="1" description="">
  <section name="software_version_and_target_device" level="1" order="1" description="">
   <keyValuePair key="beta" value="FALSE" description="" />
   <keyValuePair key="build_version" value="3247384" description="" />
-  <keyValuePair key="date_generated" value="Sun Nov 30 13:48:49 2025" description="" />
+  <keyValuePair key="date_generated" value="Thu Dec  4 21:47:18 2025" description="" />
   <keyValuePair key="os_platform" value="WIN64" description="" />
   <keyValuePair key="product_version" value="XSIM v2021.1 (64-bit)" description="" />
   <keyValuePair key="project_id" value="2b9cbc80b09d44879a2a6255b0a91b29" description="" />
-  <keyValuePair key="project_iteration" value="2" description="" />
-  <keyValuePair key="random_id" value="d3293d34-c148-4cce-a8d7-c0a450dc63e7" description="" />
-  <keyValuePair key="registration_id" value="d3293d34-c148-4cce-a8d7-c0a450dc63e7" description="" />
+  <keyValuePair key="project_iteration" value="6" description="" />
+  <keyValuePair key="random_id" value="525879b5-071f-4c2b-90ff-4220784d2ff7" description="" />
+  <keyValuePair key="registration_id" value="525879b5-071f-4c2b-90ff-4220784d2ff7" description="" />
   <keyValuePair key="route_design" value="FALSE" description="" />
   <keyValuePair key="target_device" value="not_applicable" description="" />
   <keyValuePair key="target_family" value="not_applicable" description="" />
@@ -35,7 +35,7 @@
   <section name="usage" level="2" order="2" description="">
    <keyValuePair key="iteration" value="0" description="" />
    <keyValuePair key="runtime" value="1 us" description="" />
-   <keyValuePair key="simulation_memory" value="10284_KB" description="" />
+   <keyValuePair key="simulation_memory" value="10388_KB" description="" />
    <keyValuePair key="simulation_time" value="0.08_sec" description="" />
    <keyValuePair key="trace_waveform" value="true" description="" />
   </section>

@@ -1,8 +1,8 @@
 Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2021.1 (win64) Build 3247384 Thu Jun 10 19:36:33 MDT 2021
-| Date         : Sun Nov 30 14:51:13 2025
-| Host         : P2-06 running 64-bit major release  (build 9200)
+| Date         : Thu Dec  4 23:24:50 2025
+| Host         : P2-04 running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file sending_tx_control_sets_placed.rpt
 | Design       : sending_tx
 | Device       : xc7a100t
@@ -23,11 +23,11 @@ Table of Contents
 +----------------------------------------------------------+-------+
 |                          Status                          | Count |
 +----------------------------------------------------------+-------+
-| Total control sets                                       |     7 |
-|    Minimum number of control sets                        |     7 |
+| Total control sets                                       |     8 |
+|    Minimum number of control sets                        |     8 |
 |    Addition due to synthesis replication                 |     0 |
 |    Addition due to physical synthesis replication        |     0 |
-| Unused register locations in slices containing registers |    23 |
+| Unused register locations in slices containing registers |    33 |
 +----------------------------------------------------------+-------+
 * Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
 ** Run report_qor_suggestions for automated merging and remapping suggestions
@@ -39,15 +39,15 @@ Table of Contents
 +--------------------+-------+
 |       Fanout       | Count |
 +--------------------+-------+
-| Total control sets |     7 |
-| >= 0 to < 4        |     2 |
+| Total control sets |     8 |
+| >= 0 to < 4        |     1 |
 | >= 4 to < 6        |     2 |
-| >= 6 to < 8        |     2 |
-| >= 8 to < 10       |     0 |
+| >= 6 to < 8        |     0 |
+| >= 8 to < 10       |     3 |
 | >= 10 to < 12      |     0 |
 | >= 12 to < 14      |     0 |
-| >= 14 to < 16      |     1 |
-| >= 16              |     0 |
+| >= 14 to < 16      |     0 |
+| >= 16              |     2 |
 +--------------------+-------+
 * Control sets can be remapped at either synth_design or opt_design
 
@@ -58,28 +58,29 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |               3 |            1 |
+| No           | No                    | No                     |             100 |           44 |
 | No           | No                    | Yes                    |               0 |            0 |
-| No           | Yes                   | No                     |              14 |            6 |
-| Yes          | No                    | No                     |              14 |            3 |
+| No           | Yes                   | No                     |              21 |            7 |
+| Yes          | No                    | No                     |              16 |            5 |
 | Yes          | No                    | Yes                    |               0 |            0 |
-| Yes          | Yes                   | No                     |              10 |            4 |
+| Yes          | Yes                   | No                     |              14 |            6 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
 4. Detailed Control Set Information
 -----------------------------------
 
-+-------------------+----------------------------------+------------------+------------------+----------------+--------------+
-|    Clock Signal   |           Enable Signal          | Set/Reset Signal | Slice Load Count | Bel Load Count | Bels / Slice |
-+-------------------+----------------------------------+------------------+------------------+----------------+--------------+
-|  ledtwo_OBUF_BUFG | uut/tx_sdata                     | ledone_OBUF      |                1 |              1 |         1.00 |
-|  ledtwo_OBUF_BUFG |                                  |                  |                1 |              3 |         3.00 |
-|  ledtwo_OBUF_BUFG | uut/state__1[0]                  | ledone_OBUF      |                1 |              4 |         4.00 |
-|  ledtwo_OBUF_BUFG | getting_gcode/see_ready          | ledone_OBUF      |                2 |              5 |         2.50 |
-|  ledtwo_OBUF_BUFG | getting_gcode/tx_data[6]_i_1_n_0 |                  |                1 |              7 |         7.00 |
-|  ledtwo_OBUF_BUFG | uut/shifted_data[6]_i_1_n_0      |                  |                2 |              7 |         3.50 |
-|  ledtwo_OBUF_BUFG |                                  | ledone_OBUF      |                6 |             14 |         2.33 |
-+-------------------+----------------------------------+------------------+------------------+----------------+--------------+
++----------------+----------------------------------+----------------------+------------------+----------------+--------------+
+|  Clock Signal  |           Enable Signal          |   Set/Reset Signal   | Slice Load Count | Bel Load Count | Bels / Slice |
++----------------+----------------------------------+----------------------+------------------+----------------+--------------+
+|  clk_IBUF_BUFG | uut/tx_sdata                     | reset_IBUF           |                1 |              1 |         1.00 |
+|  clk_IBUF_BUFG |                                  | getting_gcode/g_busy |                1 |              4 |         4.00 |
+|  clk_IBUF_BUFG | uut/state__1[0]                  | reset_IBUF           |                1 |              4 |         4.00 |
+|  clk_IBUF_BUFG | getting_gcode/tx_data[7]_i_1_n_0 |                      |                3 |              8 |         2.67 |
+|  clk_IBUF_BUFG | uut/shifted_data[7]_i_1_n_0      |                      |                2 |              8 |         4.00 |
+|  clk_IBUF_BUFG | getting_gcode/index0             | reset_IBUF           |                4 |              9 |         2.25 |
+|  clk_IBUF_BUFG |                                  | reset_IBUF           |                6 |             17 |         2.83 |
+|  clk_IBUF_BUFG |                                  |                      |               44 |            100 |         2.27 |
++----------------+----------------------------------+----------------------+------------------+----------------+--------------+
 
 
