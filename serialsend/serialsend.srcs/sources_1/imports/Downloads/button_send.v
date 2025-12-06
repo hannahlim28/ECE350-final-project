@@ -38,47 +38,47 @@ module button_send(
 
     // GRAB DIR AT FIRST PULSE
     reg button_pending = 0;
-    always @(posedge clk) begin
-    if(reset) begin
-        button_pending <= 0;
-    end
-    if (!button_pending && tx_ready) begin
-        if(see_bup) begin
-            DIR <= UP;
-            button_pending <= 1;
-            end else if(see_ble) begin
-            DIR <= LEFT;
-            button_pending <=1;
-            end else if(see_bri) begin
-            DIR <= RIGHT;
-            button_pending <=1;
-            end else if(see_bdo) begin
-            DIR <= DOWN;
-            button_pending <=1;
-            end 
-        end
-    end
 
     reg [18*8-1 : 0] send_data;
     reg [5*8 -1 : 0] send_states;
     reg [8:0] index = 0;
     reg prev_ready = 0;
     reg see_ready = 0;
+    reg first_cycle = 0;
     // ACTUAL FINITE STATE MACHINE
     always @(posedge clk) begin
         if(reset)begin
             tx_valid <= 0;
             index <=0;
             state <=IDLE;
+            button_pending = 0;
         end else begin
             tx_valid <= 0;
             case(state)
                 IDLE: begin
                     tx_valid <= 0;
-                    if(button_pending) begin
-                        state <= START;
-                        see_ready <= tx_ready;
-                    end
+                    if(see_bup) begin
+                    DIR <= UP;
+                    button_pending <= 1;
+                    state <= START;
+                    first_cycle <= 1;
+                    end else if(see_ble) begin
+                    DIR <= LEFT;
+                    button_pending <=1;
+                    state <= START;
+                    first_cycle <= 1;
+                    end else if(see_bri) begin
+                    DIR <= RIGHT;
+                    button_pending <=1;
+                    state <= START;
+                    first_cycle <= 1;
+                    end else if(see_bdo) begin
+                    DIR <= DOWN;
+                    button_pending <=1;
+                    state <= START;
+                    first_cycle <= 1;
+                    end 
+
                 end
                 START: begin
                     send_states = "\n19G";
@@ -131,8 +131,11 @@ module button_send(
     // MAKE THE SEE_READY PULSE
     always @(posedge clk) begin
         prev_ready <= tx_ready;
-        if(state != IDLE) begin
-            see_ready <= ~prev_ready & tx_ready;
+        if(first_cycle) begin
+            see_ready <= tx_ready;
+            first_cycle <= 0;
+        end else begin
+        see_ready <= ~prev_ready & tx_ready;
         end
     end
 endmodule
