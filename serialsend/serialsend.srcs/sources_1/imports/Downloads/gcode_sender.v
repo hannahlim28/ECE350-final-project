@@ -14,7 +14,7 @@ module gcode_sender(
 );
 
 
-    reg [1:0] state = 2'b00;
+    reg [1:0] state = IDLE;
 
     localparam START = 2'b00;
     localparam IDLE = 2'b01;
@@ -22,7 +22,6 @@ module gcode_sender(
 
     assign g_busy = (state != IDLE);
 
-    // reg [7:0] gcode_bytes [0:17];
     reg [8:0] index = 0;
     reg first_cycle = 1'b1;
     reg start_up = 1'b1;
@@ -73,12 +72,12 @@ module gcode_sender(
         y_ascii[6] <=ya6;
     end
     always @(*) begin
-        if(intensity == 0)begin
+        if(intensity == 0 )begin
             g_value <= "1";
         end else begin
             g_value <= "0";
         end
-        case(intensity)
+        case(intensity[1:0])
             2'b00: z_value = "00.2";
             2'b01: z_value = "06.0";
             2'b10: z_value = "03.0";
