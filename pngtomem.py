@@ -1,8 +1,8 @@
 import numpy as np
 from PIL import Image
 
-INPUT_IMAGE     = "plant.png"
-OUTPUT_MEM_FILE = "plant.mem"
+INPUT_IMAGE     = "star.png"
+OUTPUT_MEM_FILE = "star.mem"
 
 TARGET_SIZE     = (100, 100)  
 WRITE_OUTPUT    = True
