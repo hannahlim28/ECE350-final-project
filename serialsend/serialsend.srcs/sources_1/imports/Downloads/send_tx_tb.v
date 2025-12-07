@@ -15,10 +15,12 @@ module send_tx_tb;
         BTNL = 0;
         BTNR = 0;
         BTND = 0;
+        reset = 0;
         repeat(20) @(posedge clk);
-        BTNU = 1;
-        repeat (5) @(posedge clk);
-        BTNU = 0;
+        reset = 1;
+        repeat(5) @(posedge clk);
+        reset = 0;
+
     end
     initial begin
         #10000000;

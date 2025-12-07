@@ -1,18 +1,19 @@
-module float_to_ascii(
-    input  wire signed [15:0] val_100,   // scaled by 100
-    output reg  [7:0] ch0,               // sign  ('-', '+', or ' ')
-    output reg  [7:0] ch1,               // hundreds
-    output reg  [7:0] ch2,               // tens
-    output reg  [7:0] ch3,               // ones
-    output reg  [7:0] ch4,               // '.'
-    output reg  [7:0] ch5,               // tenths
-    output reg  [7:0] ch6                // hundredths
+module float_to_ascii_32 (
+    input  wire signed [31:0] val_100,      // 32-bit scaled by 100
+    output reg  [7:0] ch0,                  // sign ('-', or ' ')
+    output reg  [7:0] ch1,                  // hundreds
+    output reg  [7:0] ch2,                  // tens
+    output reg  [7:0] ch3,                  // ones
+    output reg  [7:0] ch4,                  // '.'
+    output reg  [7:0] ch5,                  // tenths
+    output reg  [7:0] ch6                   // hundredths
 );
 
-    reg signed [15:0] tmp;
-    reg [15:0] mag;           // absolute value
-    reg [13:0] int_part;      // integer part (0..999)
-    reg [6:0]  frac_part;     // 0..99
+    reg signed [31:0] tmp;
+    reg       [31:0] mag;                   // absolute value
+
+    reg [15:0] int_part;                    // integer part (clamped 0..999)
+    reg [6:0]  frac_part;                   // fractional (0..99)
 
     reg [3:0] hundreds;
     reg [3:0] tens;
@@ -23,33 +24,33 @@ module float_to_ascii(
     always @* begin
         tmp = val_100;
 
-        // sign
+        // sign & magnitude
         if (tmp < 0) begin
             ch0 = "-";
             mag = -tmp;
         end else begin
-            ch0 = " ";   // or "+" if you prefer
+            ch0 = " ";
             mag = tmp;
         end
 
-        // split into integer and fractional parts
-        int_part  = mag / 100;   // integer portion
-        frac_part = mag % 100;   // 0..99
+        // scaled: value = mag / 100
+        int_part  = mag / 100;    // whole number portion
+        frac_part = mag % 100;    // 0..99 fractional
 
-        // clamp range to 0..999 just in case
+        // limit range to printable field (0–999)
         if (int_part > 999)
             int_part = 999;
 
-        // integer digits
+        // extract integer digits
         hundreds = int_part / 100;
         tens     = (int_part / 10) % 10;
         ones     = int_part % 10;
 
-        // fractional digits (two decimal places)
+        // fractional digits
         frac_tens = frac_part / 10;
         frac_ones = frac_part % 10;
 
-        // map digits to ASCII '0'..'9'
+        // convert digits to ASCII
         ch1 = "0" + hundreds;
         ch2 = "0" + tens;
         ch3 = "0" + ones;

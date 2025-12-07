@@ -24,7 +24,7 @@ module sending_tx(
     button_send sending_button(
         .clk(clk),
         .reset(reset),
-        .BTNU(BTNU), 
+        .BTNU(1'b0), 
         .BTNL(BTNL),
         .BTNR(BTNR),
         .BTND(BTND),
@@ -32,8 +32,23 @@ module sending_tx(
         .tx_valid(b_valid),
         .tx_data(b_letter)
 );
-
-
+    reg bup, see_bup, prev_bup;
+    always @(posedge clk)begin
+        bup <= BTNU
+    end
+    always @(posedge clk)begin
+        prev_bup <= bup;
+        see_bup <= ~prev_bup & bup;
+    end
+    always @(posedge clk)begin
+        if(see_bup && !g_busy) begin
+            xo <= 5;
+            xt <= 10;
+            yo <= 2;
+            yt <= 2;
+            intensity <= 2'b11;
+        end
+    end
     uart_transmit uut(
         .clk(clk), 
         .reset(reset), 
@@ -48,7 +63,7 @@ module sending_tx(
         .yo(yo),
         .yt(yt),
         .intensity(intensity),
-        .g_send(g_send),
+        .g_send(see_bup),
         .g_busy(g_busy),
         .clk(clk),
         .reset(reset),

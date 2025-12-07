@@ -51,7 +51,12 @@ module button_send(
             tx_valid <= 0;
             index <=0;
             state <=IDLE;
-            button_pending = 0;
+            button_pending <= 0;
+            first_cycle <=0;
+            see_ready <= 0;
+            prev_ready <=0;
+            DIR <= UP;
+            state <= IDLE;
         end else begin
             tx_valid <= 0;
             case(state)
@@ -125,17 +130,15 @@ module button_send(
                     end
                 end
             endcase
-        end 
+            prev_ready <= tx_ready;
+            if(first_cycle) begin
+                see_ready <= tx_ready;
+                first_cycle <= 0;
+            end else begin
+            see_ready <= ~prev_ready & tx_ready;
+            end 
+        end
     end
 
     // MAKE THE SEE_READY PULSE
-    always @(posedge clk) begin
-        prev_ready <= tx_ready;
-        if(first_cycle) begin
-            see_ready <= tx_ready;
-            first_cycle <= 0;
-        end else begin
-        see_ready <= ~prev_ready & tx_ready;
-        end
-    end
 endmodule
