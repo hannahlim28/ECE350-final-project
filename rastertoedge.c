@@ -4,8 +4,8 @@
 #include <ctype.h>
 
 // Configuration constants
-#define INPUT_MEM_FILE "plant.mem"
-#define OUTPUT_MEM_FILE "plant_edge.mem"
+#define INPUT_MEM_FILE "star.mem"
+#define OUTPUT_MEM_FILE "star_edge.mem"
 #define MAX_LINE_LENGTH 4096
 
 int main(void){

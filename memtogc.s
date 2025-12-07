@@ -1,16 +1,15 @@
     addi $sp, $zero, 12288      # stack pointer start = 0x3000
     addi $s0, $zero, 4096       # pixels base address = 0x1000
-    addi $s5, $zero, 32768      # (optional) run buffer base = 0x8000
 
     addi $s4, $zero, 0          # run_count = 0
 
-    addi $t0, $zero, 100      # t0 = width
-    addi $t1, $zero, 100       # t1 = height
+    addi $t0, $zero, 100        # t0 = width
+    addi $t1, $zero, 100        # t1 = height
 
-    addi $t2, $zero, 400       # bytes per row = 2000
+    addi $t2, $zero, 400        # bytes per row (100 pixels * 4 bytes each) = 400
 
-    addi $s6, $zero, 0       # s6 = x_offset
-    addi $s7, $zero, 0       # s7 = y_offset
+    addi $s6, $zero, 0          # s6 = x_offset
+    addi $s7, $zero, 0          # s7 = y_offset
 
     addi $s1, $zero, 0          # s1 = y
 
@@ -31,16 +30,27 @@ x_loop:
     j    next_row               # else, go to next row
 
 x_body:
-    lw   $t3, 0($s3)            # t3 = level (pixel value)
+    lw   $t3, 0($s3)            # load raw pixel word
+
+    # --------- REDUCE t3 TO 0..3 USING MOD 4 (NO AND/ANDI) ---------
+    addi $t7, $zero, 4          # t7 = 4
+mod4_t3_loop:
+    blt  $t3, $t7, mod4_t3_done # if t3 < 4, done
+    addi $t3, $t3, -4           # t3 -= 4
+    j    mod4_t3_loop
+mod4_t3_done:
+    # t3 is now 0,1,2,3
+    # ---------------------------------------------------------------
+
     addi $s3, $s3, 4            # advance 4 bytes (next pixel)
     addi $s2, $s2, 1            # x++
 
-    bne  $t3, $zero, not_white  # if pixel != 0, it's part of a run
+    bne  $t3, $zero, not_white  # if level != 0, it's part of a run
     j    x_loop                 # else keep scanning
 
 not_white:
     addi $t4, $s2, -1           # t4 = run_start_x = x - 1
-    addi $t5, $t3, 0            # t5 = run_level = this level
+    addi $t5, $t3, 0            # t5 = run_level = this level (0..3)
 
 # find the end of the run (same level, same row)
 find_end:
@@ -48,7 +58,18 @@ find_end:
     j    end_run
 
 fe_body:
-    lw   $t6, 0($s3)            # t6 = next pixel level
+    lw   $t6, 0($s3)            # load next raw pixel word
+
+    # --------- REDUCE t6 TO 0..3 USING MOD 4 (NO AND/ANDI) ---------
+    addi $t7, $zero, 4          # t7 = 4
+mod4_t6_loop:
+    blt  $t6, $t7, mod4_t6_done # if t6 < 4, done
+    addi $t6, $t6, -4           # t6 -= 4
+    j    mod4_t6_loop
+mod4_t6_done:
+    # t6 is now 0,1,2,3
+    # ---------------------------------------------------------------
+
     bne  $t6, $t5, end_run      # level changed → end of run
 
     addi $s3, $s3, 4            # move to next pixel in memory
@@ -83,7 +104,7 @@ ready:
     sw   $t9, 0($s5)
 
     addi $s5, $zero, 36876      # RUN_LEVEL (0x900C)
-    sw   $t5, 0($s5)
+    sw   $t5, 0($s5)            # t5 is 0,1,2,3
 
     # 3) Trigger send via RUN_CONTROL (36880 = 0x9010)
     addi $s5, $zero, 36880      # RUN_CONTROL
@@ -107,4 +128,4 @@ done_with_rows:
     sw   $s4, 0($t0)            # store run_count (optional/debug)
 
 done:
-    j    done
+    j    done                   # infinite loop at end
