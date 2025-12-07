@@ -39,7 +39,7 @@ static int parse_pixel_level(const char *token) {
 
 static double z_for_level(int level) {
   switch (level) {
-        case 0: return 2.0;   // white / no drawing (we'll usually skip it anyway)
+        case 0: return 2.0;   // white 
         case 1: return 0.6;   // light gray
         case 2: return 0.3;   // medium gray
         case 3: return 0.0;   // black
