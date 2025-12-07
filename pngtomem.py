@@ -1,36 +1,31 @@
 import numpy as np
 from PIL import Image
 
-TARGET_SIZE = (500, 500)   # (width, height)
+INPUT_IMAGE     = "plant.png"
+OUTPUT_MEM_FILE = "plant.mem"
 
-img = Image.open("mountian.png").convert("RGB")
-img = img.resize(TARGET_SIZE, Image.BICUBIC)   # resize 
+TARGET_SIZE     = (100, 100)  
+WRITE_OUTPUT    = True
 
-I = np.asarray(img, dtype=np.float32) / 255.0   
+BINARY_MODE     = False
+THRESHOLD       = 0.5           # used only if BINARY_MODE = True
+
+img = Image.open(INPUT_IMAGE).convert("RGB")
+img = img.resize(TARGET_SIZE, Image.NEAREST)
+I = np.asarray(img, dtype=np.float32) / 255.0
 gray = 0.299 * I[:, :, 0] + 0.587 * I[:, :, 1] + 0.114 * I[:, :, 2]
 
 bw = 1.0 - gray
+
+if BINARY_MODE:
+    bw = (bw > THRESHOLD).astype(np.float32)
+
 I = np.stack([bw, bw, bw], axis=2)
 
-write_output_file = 1
 
-if write_output_file == 1:
-    fid = open("mountian.mem", "w")
+im = np.floor(I * 255 / 64).astype(np.uint8)  # each channel 0–3
 
-# create image with only RED content
-R_orig = I.copy()
-R_orig[:, :, 1] = 0
-R_orig[:, :, 2] = 0
-
-
-# Reduce to 6 bits/pixel, 2 for each color
-R_64 = np.floor(R_orig * 255 / 64).astype(np.uint8)
-
-I_64 = np.floor(I * 255 / 64).astype(np.uint8)
-
-im = I_64
-
-def print2bits(x):
+def print2bits(x: int) -> str:
     if x == 0:
         return "00"
     elif x == 1:
@@ -42,18 +37,19 @@ def print2bits(x):
     else:
         return "ERROR"
 
-if write_output_file == 1:
-    print("Writing output file.")
+
+if WRITE_OUTPUT:
+    print("Writing output file:", OUTPUT_MEM_FILE)
 
     rows, cols, _ = im.shape
-    # sanity check: should be 200 x 200
     print(f"MEM image size: {cols} x {rows} pixels")
 
-    for row in range(rows):
-        for col in range(cols):
-            r = int(im[row, col, 0])
-            fid.write(f"{print2bits(r)} ")
+    with open(OUTPUT_MEM_FILE, "w") as fid:
+        for row in range(rows):
+            for col in range(cols):
+                # Use the red channel (they're all the same)
+                r = int(im[row, col, 0])
+                fid.write(f"{print2bits(r)} ")
+            fid.write("\n")
 
-        fid.write("\n")
-    fid.close()
-    print("Done")
+    print("Done.")

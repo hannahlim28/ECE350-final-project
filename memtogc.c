@@ -4,18 +4,17 @@
 #include <ctype.h>
 
 // Configuration constants
-#define INPUT_MEM_FILE "mountian.mem"
-#define OUTPUT_GCODE_FILE "mountian.gcode"
+#define INPUT_MEM_FILE "plant.mem"
+#define OUTPUT_GCODE_FILE "plant.gcode"
 
-#define PIXEL_SIZE_MM 0.1   // How many mm each pixel represents
-#define CENTER_ON_ORIGIN 1  // 1 = center at (0,0), 0 = start at (0,0)
+#define PIXEL_SIZE_MM 0.5   // How many mm each pixel represents
+#define CENTER_ON_ORIGIN 0  // 1 = center at (0,0), 0 = start at (0,0)
 #define Z_UP_MM 2.0         // Height when pen is up (not drawing)
 #define Z_DOWN_MM 0.0       // Height when pen is fully down (darkest)
 #define FEED_RATE 1000.0    // Speed of movement in mm/min
 
-// If you know your mem is 200x200, you can set these to 200 for stricter bounds
-#define MAX_GRID_HEIGHT 500
-#define MAX_GRID_WIDTH  500
+#define MAX_GRID_HEIGHT 100
+#define MAX_GRID_WIDTH  100
 #define MAX_LINE_LENGTH 4096
 
 // Bitmap struct: 2D grid of gray levels
@@ -25,11 +24,6 @@ typedef struct {
     int height;   // number of rows actually used
     int width;    // number of columns actually used
 } Bitmap;
-
-//  "000000" (0)
-//  "010101" (1)
-//  "101010" (2)
-//  "111111" (3)
 
 static int parse_pixel_level(const char *token) {
     int b0 = (token[0] == '1') ? 1 : 0;
@@ -43,8 +37,6 @@ static int parse_pixel_level(const char *token) {
     return level;
 }
 
-// level = 0  -> white  -> skip (we won't even draw)
-// level > 0  -> darker as level increases
 static double z_for_level(int level) {
   switch (level) {
         case 0: return 2.0;   // white / no drawing (we'll usually skip it anyway)
@@ -79,7 +71,6 @@ Bitmap read_mem_bitmap(const char *path) {
         while (isspace((unsigned char)*start)) start++;
         int col = 0;
 
-        // token = 6-bit string (like "010101")
         char *token = strtok(line, " \t\n\r");
         while (token && col < MAX_GRID_WIDTH) {
             int level = parse_pixel_level(token);  // 0..3
@@ -179,19 +170,19 @@ void generate_gcode_from_grid(
             double z_draw = z_for_level(run_level);
 
             // 1. Rapid move to start with pen up
-            fprintf(out, "G0 X%.3f Y%.3f Z%.3f\n", x_start_mm, y_mm, z_up);
+            fprintf(out, "G0 X%.2f Y%.2f Z%.2f\n", x_start_mm, y_mm, z_up);
             // 2. Lower pen to appropriate gray-level height
-            fprintf(out, "G1 Z%.3f F%.1f\n", z_draw, feed_rate);
+            fprintf(out, "G1 Z%.2f F%.1f\n", z_draw, feed_rate);
             // 3. Draw line to end of run
-            fprintf(out, "G1 X%.3f Y%.3f\n", x_end_mm, y_mm);
+            fprintf(out, "G1 X%.2f Y%.2f\n", x_end_mm, y_mm);
             // 4. Pen up again
-            fprintf(out, "G0 Z%.3f\n", z_up);
+            fprintf(out, "G0 Z%.2f\n", z_up);
         }
     }
 
     // Return to origin, pen up
     fprintf(out, "G0 Z%.3f\n", z_up);
-    fprintf(out, "G0 X0.000 Y0.000\n");
+    fprintf(out, "G0 X0.00 Y0.00\n");
     fprintf(out, "M2\n");
 
     fclose(out);

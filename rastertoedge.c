@@ -19,13 +19,13 @@ while (fgets(line, sizeof(line), fin)) {
 
         while (token) {
             // Replace exact matches "010101" or "101010" with "000000"
-            if (strcmp(token, "010101") == 0 || strcmp(token, "101010") == 0) {
-                token = "000000";
+            if (strcmp(token, "01") == 0 || strcmp(token, "10") == 0) {
+                token = "00";
             }
             
-            if (strcmp(token, "000000") == 0) {
+            if (strcmp(token, "00") == 0) {
                 token = "0";
-            } else if (strcmp(token, "111111") == 0) {
+            } else if (strcmp(token, "11") == 0) {
                 token = "1";
             }
 
