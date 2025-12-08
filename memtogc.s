@@ -55,9 +55,6 @@
 
     addi $a0, $s0, 0           # a0 = row pointer (start of row 0)
 
-#=========================================================
-# Y LOOP: iterate over rows (s1 = y)
-#=========================================================
 y_loop:
     blt  $s1, $t1, y_body      # if y < height, process row
     j    done_with_rows        # else all rows done
@@ -66,25 +63,14 @@ y_body:
     addi $s3, $a0, 0           # s3 = byte address in this row
     addi $s2, $zero, 0         # s2 = x = 0
 
-#=========================================================
-# X LOOP: iterate over columns (s2 = x)
-#=========================================================
 x_loop:
     blt  $s2, $t0, x_body      # if x < width, process pixel
     j    next_row              # else go to next row
 
-#---------------------------------------------------------
-# X BODY: process pixel at (x,y), build a run of same level
-#---------------------------------------------------------
 x_body:
     # Load current pixel value (assumed 0..255 or 0..3) from memory
     lw   $t3, 0($s3)           # t3 = raw pixel word
-
-    #-----------------------------------------------------
-    # Quantization: map raw [0..255?] → level 0..3
     # Only divide if t3 >= 16; else keep as is
-    # (for small values like 0..3, this does nothing)
-    #-----------------------------------------------------
     addi $t6, $zero, 16        # t6 = 16
     blt  $t3, $t6, skip_div_t3 # if t3 < 16, skip division
 
@@ -115,24 +101,17 @@ skip_div_t3:
     # t3 stays as is for small values
 
 continue_x_body:
-
-    # Advance to the next pixel in memory and x index
+    #  next pixel in memory and x index
     addi $s3, $s3, 4           # s3 += 4 bytes (next word)
     addi $s2, $s2, 1           # x++
 
     # Start a run at this pixel:
-    # (Option A) send runs even if level = 0 (pen up moves)
-    # If you want to skip white entirely, uncomment:
-    #   beq  $t3, $zero, x_loop
-
     addi $t4, $s2, -1          # t4 = run_start_x = x - 1 (start of run)
     addi $t5, $t3, 0           # t5 = run_level   = current level 0..3
 
     j    find_end
 
-#=========================================================
-# FIND_END: extend run while next pixels on row match level
-#=========================================================
+# extend run while next pixels on row match level
 find_end:
     blt  $s2, $t0, fe_body     # while x < width, check next pixel
     j    end_run               # else row boundary → end run
@@ -177,37 +156,28 @@ continue_find_end:
     addi $s2, $s2, 1          # x++
     j    find_end
 
-#---------------------------------------------------------
-# END_RUN: we now have a run from x = t4 to x = (s2 - 1)
-#---------------------------------------------------------
+#we now have a run from x = t4 to x = (s2 - 1)
 end_run:
     addi $t6, $s2, -1         # t6 = run_end_x
 
-    # Compute coordinates:
-    #   y_mm = y_offset + y
-    #   x_start_mm = x_offset + run_start_x
-    #   x_end_mm   = x_offset + run_end_x
     add  $t7, $s7, $s1        # t7 = y_mm
     add  $t8, $s6, $t4        # t8 = x_start_mm
     add  $t9, $s6, $t6        # t9 = x_end_mm
+    #runs for level 0 (pure white)
+    bne  $t5, $zero, mmio_send
+    j x_loop
 
-    # Optional: skip sending runs for level 0 (pure white)
-    # Comment out if you want pen-up travel moves emitted:
-    beq  $t5, $zero, x_loop
-
-    #=====================================================
+mmio_send:
     # MMIO INTERFACE: send this run to the G-code hardware
-    #=====================================================
-
-    # 1) Poll RUN_STATUS (0x9014) until READY (non-zero)
     addi $s5, $zero, 36884    # s5 = 0x9014 (RUN_STATUS)
 
 wait_ready_loop:
     lw   $t6, 0($s5)          # t6 = status
-    beq  $t6, $zero, wait_ready_loop  # if 0, still busy → wait
+    bne  $t6, $zero, do_send
+    j wait_ready_loop  # if 0, still busy → wait
 
     # 2) Write run parameters to MMIO registers
-
+do_send: 
     addi $s5, $zero, 36864    # 0x9000: RUN_Y
     sw   $t7, 0($s5)          # y
 
@@ -231,20 +201,14 @@ wait_ready_loop:
     # Continue scanning this row (x, s3 already point after this run)
     j    x_loop
 
-#=========================================================
-# NEXT ROW
-#=========================================================
 next_row:
     addi $s1, $s1, 1          # y++
     add  $a0, $a0, $t2        # row pointer += bytes per row
     j    y_loop
 
-#=========================================================
-# DONE PROCESSING ALL ROWS
-#=========================================================
 done_with_rows:
-    # Optionally store run_count to memory for debugging
-    addi $t0, $zero, 32764    # 0x7FFC (or any convenient address)
+    # store run_count to memory for debugging
+    addi $t0, $zero, 32764    # 0x7FFC 
     sw   $s4, 0($t0)          # store run_count
 
 done:
