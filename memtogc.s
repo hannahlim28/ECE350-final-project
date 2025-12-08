@@ -1,25 +1,44 @@
+    #---------------------------------------------------------
+    # Bitmap → run-length MMIO sender for G-code hardware
+    #
     # Register allocation:
-    # $s0 = grid base address (0x1000)
-    # $s1 = y (current row)
-    # $s2 = x (current column)
-    # $s3 = byte address in current row
-    # $s4 = run_count
-    # $s5 = temp register for addresses/values
-    # $s6 = x_offset
-    # $s7 = y_offset
-    # $t0 = width
-    # $t1 = height
-    # $t2 = bytes per row
-    # $t3 = current pixel level
-    # $t4 = run_start_x
-    # $t5 = run_level
-    # $t6 = temp (next level, run_end_x, etc.)
-    # $t7 = temp (arithmetic, comparisons)
-    # $t8 = x_start_mm
-    # $t9 = x_end_mm
-    # $a0 = row pointer
+    #   $s0 = grid base address (0x1000)
+    #   $s1 = y (current row index)
+    #   $s2 = x (current column index)
+    #   $s3 = byte address within current row
+    #   $s4 = run_count (debug)
+    #   $s5 = MMIO address scratch
+    #   $s6 = x_offset
+    #   $s7 = y_offset
+    #
+    #   $t0 = width  (100)
+    #   $t1 = height (100)
+    #   $t2 = bytes per row (width * 4)
+    #   $t3 = current pixel level (0–3)
+    #   $t4 = run_start_x
+    #   $t5 = run_level
+    #   $t6 = temp (next level, run_end_x, etc.)
+    #   $t7 = temp (loop arithmetic)
+    #
+    #   $t8 = x_start_mm (x_offset + run_start_x)
+    #   $t9 = x_end_mm   (x_offset + run_end_x)
+    #
+    #   $a0 = row pointer (byte address of row start)
+    #   $a1, $a2, $a3 = temps for division by 8 (quotient/remainder)
+    #
+    # Memory layout:
+    #   Image pixels:  0x1000 .. (0x1000 + 100*100*4 - 1)
+    #   MMIO:
+    #     0x9000: RUN_Y
+    #     0x9004: RUN_X_START
+    #     0x9008: RUN_X_END
+    #     0x900C: RUN_LEVEL
+    #     0x9010: RUN_CONTROL (bit 0 = go)
+    #     0x9014: RUN_STATUS  (non-zero = READY)
+    #
+    #---------------------------------------------------------
 
-    addi $sp, $zero, 12288     # stack pointer = 0x3000
+    addi $sp, $zero, 12288     # stack pointer = 0x3000 (if needed)
     addi $s0, $zero, 4096      # grid base address = 0x1000
 
     addi $s4, $zero, 0         # run_count = 0
@@ -29,166 +48,204 @@
 
     addi $t2, $zero, 400       # bytes per row = 100 pixels * 4 bytes
 
-    addi $s6, $zero, 0         # s6 = x_offset
-    addi $s7, $zero, 0         # s7 = y_offset
+    addi $s6, $zero, 0         # x_offset = 0
+    addi $s7, $zero, 0         # y_offset = 0
 
-    addi $s1, $zero, 0         # s1 = y
+    addi $s1, $zero, 0         # y = 0
 
     addi $a0, $s0, 0           # a0 = row pointer (start of row 0)
 
-# Y LOOP (iterate through rows)
+#=========================================================
+# Y LOOP: iterate over rows (s1 = y)
+#=========================================================
 y_loop:
-    blt  $s1, $t1, y_body       # if y < height, process row
-    j    done_with_rows
+    blt  $s1, $t1, y_body      # if y < height, process row
+    j    done_with_rows        # else all rows done
 
 y_body:
-    addi $s3, $a0, 0            # s3 = byte address in this row
-    addi $s2, $zero, 0          # s2 = x = 0
+    addi $s3, $a0, 0           # s3 = byte address in this row
+    addi $s2, $zero, 0         # s2 = x = 0
 
-# X LOOP (iterate through columns)
+#=========================================================
+# X LOOP: iterate over columns (s2 = x)
+#=========================================================
 x_loop:
-    blt  $s2, $t0, x_body       # if x < width, process pixel
-    j    next_row               # else go to next row
+    blt  $s2, $t0, x_body      # if x < width, process pixel
+    j    next_row              # else go to next row
 
+#---------------------------------------------------------
+# X BODY: process pixel at (x,y), build a run of same level
+#---------------------------------------------------------
 x_body:
-    # Load current pixel level (0-3 stored as integer)
-    lw   $t3, 0($s3)            # t3 = raw pixel word
+    # Load current pixel value (assumed 0..255 or 0..3) from memory
+    lw   $t3, 0($s3)           # t3 = raw pixel word
 
-    # Only divide by 8 if t3 > 15, otherwise keep as is
-    addi $t6, $zero, 16         # t6 = 16
-    blt  $t3, $t6, skip_div_t3  # if t3 < 16, skip division
+    #-----------------------------------------------------
+    # Quantization: map raw [0..255?] → level 0..3
+    # Only divide if t3 >= 16; else keep as is
+    # (for small values like 0..3, this does nothing)
+    #-----------------------------------------------------
+    addi $t6, $zero, 16        # t6 = 16
+    blt  $t3, $t6, skip_div_t3 # if t3 < 16, skip division
 
-    # Compute t3 / 8, with +1 if remainder
-    addi $t7, $zero, 8          # t7 = 8
-    addi $t6, $zero, 0          # t6 = quotient
-    addi $a1, $zero, 0          # a1 = remainder
+    # Compute t3 / 8 with rounding up: ceil(t3 / 8)
+    addi $t7, $zero, 8         # t7 = 8
+    addi $t6, $zero, 0         # t6 = quotient
+    addi $a1, $zero, 0         # a1 = remainder
+
 div8_t3_loop:
-    blt  $t3, $t7, div8_t3_done # if t3 < 8, done dividing
-    addi $t3, $t3, -8           # t3 -= 8
-    addi $t6, $t6, 1            # quotient++
+    blt  $t3, $t7, div8_t3_done  # if t3 < 8, done dividing
+    addi $t3, $t3, -8            # t3 -= 8
+    addi $t6, $t6, 1             # quotient++
     j    div8_t3_loop
+
 div8_t3_done:
-    addi $a1, $t3, 0            # a1 = remainder (what's left in t3)
-    addi $t3, $t6, 0            # t3 = quotient
-    # If remainder != 0, add 1 to quotient
-    bne  $a1, $zero, add_one_t3
+    addi $a1, $t3, 0             # a1 = remainder (what's left in t3)
+    addi $t3, $t6, 0             # t3 = quotient
+    bne  $a1, $zero, add_one_t3  # if remainder != 0, round up
     j    no_remainder_t3
+
 add_one_t3:
-    addi $t3, $t3, 1            # t3 = quotient + 1
+    addi $t3, $t3, 1             # t3 = quotient + 1
+
 no_remainder_t3:
     j    continue_x_body
 
 skip_div_t3:
-    # t3 stays as is
+    # t3 stays as is for small values
+
 continue_x_body:
 
-    addi $s3, $s3, 4            # advance to next word in memory
-    addi $s2, $s2, 1            # x++
+    # Advance to the next pixel in memory and x index
+    addi $s3, $s3, 4           # s3 += 4 bytes (next word)
+    addi $s2, $s2, 1           # x++
 
-    # Start of a run at this pixel (any level 0-3)
-    addi $t4, $s2, -1           # t4 = run_start_x = x - 1
-    addi $t5, $t3, 0            # t5 = run_level = current level (0-3)
+    # Start a run at this pixel:
+    # (Option A) send runs even if level = 0 (pen up moves)
+    # If you want to skip white entirely, uncomment:
+    #   beq  $t3, $zero, x_loop
 
-    j    find_end               # go extend the run
+    addi $t4, $s2, -1          # t4 = run_start_x = x - 1 (start of run)
+    addi $t5, $t3, 0           # t5 = run_level   = current level 0..3
 
-# Find the end of the run (same non-zero level, same row)
+    j    find_end
+
+#=========================================================
+# FIND_END: extend run while next pixels on row match level
+#=========================================================
 find_end:
-    blt  $s2, $t0, fe_body      # while x < width
-    j    end_run
+    blt  $s2, $t0, fe_body     # while x < width, check next pixel
+    j    end_run               # else row boundary → end run
 
 fe_body:
-    lw   $t6, 0($s3)            # t6 = next raw pixel word
+    lw   $t6, 0($s3)           # t6 = next raw pixel word
 
-    # Only divide by 8 if t6 > 15, otherwise keep as is
-    addi $a2, $zero, 16         # a2 = 16
-    blt  $t6, $a2, skip_div_t6  # if t6 < 16, skip division
+    # Quantize t6 similarly to t3 above
+    addi $a2, $zero, 16        # a2 = 16
+    blt  $t6, $a2, skip_div_t6 # if t6 < 16, skip division
 
-    # Compute t6 / 8, with +1 if remainder
-    addi $t7, $zero, 8          # t7 = 8
-    addi $a2, $zero, 0          # a2 = quotient
-    addi $a3, $zero, 0          # a3 = remainder
+    addi $t7, $zero, 8         # t7 = 8
+    addi $a2, $zero, 0         # a2 = quotient
+    addi $a3, $zero, 0         # a3 = remainder
+
 div8_t6_loop:
-    blt  $t6, $t7, div8_t6_done # if t6 < 8, done dividing
-    addi $t6, $t6, -8           # t6 -= 8
-    addi $a2, $a2, 1            # quotient++
+    blt  $t6, $t7, div8_t6_done  # if t6 < 8, done dividing
+    addi $t6, $t6, -8            # t6 -= 8
+    addi $a2, $a2, 1             # quotient++
     j    div8_t6_loop
+
 div8_t6_done:
-    addi $a3, $t6, 0            # a3 = remainder (what's left in t6)
-    addi $t6, $a2, 0            # t6 = quotient
-    # If remainder != 0, add 1 to quotient
-    bne  $a3, $zero, add_one_t6
+    addi $a3, $t6, 0             # a3 = remainder
+    addi $t6, $a2, 0             # t6 = quotient
+    bne  $a3, $zero, add_one_t6  # round up if remainder != 0
     j    no_remainder_t6
+
 add_one_t6:
-    addi $t6, $t6, 1            # t6 = quotient + 1
+    addi $t6, $t6, 1
+
 no_remainder_t6:
     j    continue_find_end
 
 skip_div_t6:
     # t6 stays as is
+
 continue_find_end:
+    bne  $t6, $t5, end_run    # if level changed, run ends here
 
-    bne  $t6, $t5, end_run      # if level changed, end of run
-
-    addi $s3, $s3, 4            # move to next pixel word
-    addi $s2, $s2, 1            # x++
+    # else level is same: extend run
+    addi $s3, $s3, 4          # next pixel word
+    addi $s2, $s2, 1          # x++
     j    find_end
 
+#---------------------------------------------------------
+# END_RUN: we now have a run from x = t4 to x = (s2 - 1)
+#---------------------------------------------------------
 end_run:
-    addi $t6, $s2, -1           # t6 = run_end_x
+    addi $t6, $s2, -1         # t6 = run_end_x
 
-    # Compute coordinates (integer units, scaling applied later)
-    add  $t7, $s7, $s1          # t7 = y_mm = y_offset + y
-    add  $t8, $s6, $t4          # t8 = x_start_mm = x_offset + run_start_x
-    add  $t9, $s6, $t6          # t9 = x_end_mm = x_offset + run_end_x
+    # Compute coordinates:
+    #   y_mm = y_offset + y
+    #   x_start_mm = x_offset + run_start_x
+    #   x_end_mm   = x_offset + run_end_x
+    add  $t7, $s7, $s1        # t7 = y_mm
+    add  $t8, $s6, $t4        # t8 = x_start_mm
+    add  $t9, $s6, $t6        # t9 = x_end_mm
 
-    # MMIO Interface: send run to G-code hardware module
-    # Wait for hardware to be ready before sending
+    # Optional: skip sending runs for level 0 (pure white)
+    # Comment out if you want pen-up travel moves emitted:
+    beq  $t5, $zero, x_loop
 
-    # 1) Poll RUN_STATUS (0x9014) until ready (non-zero)
-    addi $s5, $zero, 36884      # s5 = RUN_STATUS address (0x9014)
+    #=====================================================
+    # MMIO INTERFACE: send this run to the G-code hardware
+    #=====================================================
+
+    # 1) Poll RUN_STATUS (0x9014) until READY (non-zero)
+    addi $s5, $zero, 36884    # s5 = 0x9014 (RUN_STATUS)
 
 wait_ready_loop:
-    lw   $t6, 0($s5)            # t6 = status
-    bne  $t6, $zero, send_run   # if status != 0, ready to send
-    j    wait_ready_loop        # else keep waiting
+    lw   $t6, 0($s5)          # t6 = status
+    beq  $t6, $zero, wait_ready_loop  # if 0, still busy → wait
 
-send_run:
-   # 2) Write run data into MMIO registers
+    # 2) Write run parameters to MMIO registers
 
-    addi $s5, $zero, 36864      # RUN_Y_MM (0x9000)
-    sw   $t7, 0($s5)            # write y coordinate
+    addi $s5, $zero, 36864    # 0x9000: RUN_Y
+    sw   $t7, 0($s5)          # y
 
-    addi $s5, $zero, 36868      # RUN_X_START (0x9004)
-    sw   $t8, 0($s5)            # write start x
+    addi $s5, $zero, 36868    # 0x9004: RUN_X_START
+    sw   $t8, 0($s5)          # x_start
 
-    addi $s5, $zero, 36872      # RUN_X_END (0x9008)
-    sw   $t9, 0($s5)            # write end x
+    addi $s5, $zero, 36872    # 0x9008: RUN_X_END
+    sw   $t9, 0($s5)          # x_end
 
-    addi $s5, $zero, 36876      # RUN_LEVEL (0x900C)
-    sw   $t5, 0($s5)            # write level (1-3 for grays, 0=skip)
+    addi $s5, $zero, 36876    # 0x900C: RUN_LEVEL
+    sw   $t5, 0($s5)          # level (1–3, or 0 if you didn't skip above)
 
-    # 3) Trigger send via RUN_CONTROL (0x9010)
-    addi $s5, $zero, 36880      # RUN_CONTROL address
+    # 3) Trigger send via RUN_CONTROL (0x9010), bit 0 = 1
+    addi $s5, $zero, 36880    # 0x9010: RUN_CONTROL
     addi $t6, $zero, 1
-    sw   $t6, 0($s5)            # write 1 to trigger send
+    sw   $t6, 0($s5)          # write 1 to "go"
 
-    # 4) Increment run counter
-    addi $s4, $s4, 1            # run_count++
+    # 4) Increment run counter (debug)
+    addi $s4, $s4, 1          # run_count++
 
-    # Continue to next pixel (already advanced x in x_body and find_end)
+    # Continue scanning this row (x, s3 already point after this run)
     j    x_loop
 
-# Move to next row
+#=========================================================
+# NEXT ROW
+#=========================================================
 next_row:
-    addi $s1, $s1, 1            # y++
-    add  $a0, $a0, $t2          # row pointer += bytes per row
+    addi $s1, $s1, 1          # y++
+    add  $a0, $a0, $t2        # row pointer += bytes per row
     j    y_loop
 
-# Done processing all rows
+#=========================================================
+# DONE PROCESSING ALL ROWS
+#=========================================================
 done_with_rows:
-    # Optional: store final run count to memory for debugging
-    addi $t0, $zero, 32764      # 0x7FFC (high memory)
-    sw   $s4, 0($t0)            # store run_count
+    # Optionally store run_count to memory for debugging
+    addi $t0, $zero, 32764    # 0x7FFC (or any convenient address)
+    sw   $s4, 0($t0)          # store run_count
 
 done:
-    j    done                   # infinite loop at end
+    j    done                 # infinite loop at end
