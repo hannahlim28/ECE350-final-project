@@ -1,26 +1,23 @@
 module sending_tx(
     input wire clk,
-    input wire xo,
-    input wire xt,
-    input wire yo,
-    input wire yt,
+    input wire [31:0] xo,
+    input wire [31:0] xt,
+    input wire [31:0] yo,
+    input wire [31:0] yt,
     input wire g_send,
-    input wire intensity,
+    input wire [1:0] intensity,
     input wire reset,
     input wire BTNU,
     input wire BTNL,
     input wire BTNR,
     input wire BTND,
     output wire tx,
-    output wire busy,
+    output wire busy
 );
-    assign busy = !g_busy && !uart_tx_busy;
+    assign busy = g_busy || uart_tx_busy;
     wire uart_tx_busy;
     wire tx_valid, button_valid, g_valid;
     wire baud_clk;
-    reg [31:0] xo, xt,yo,yt;
-    reg [1:0] intensity;
-    reg g_send = 0;
 
     wire g_busy, b_busy;
 
@@ -32,7 +29,7 @@ module sending_tx(
     button_send sending_button(
         .clk(clk),
         .reset(reset),
-        .BTNU(1'b0), 
+        .BTNU(BTNU), 
         .BTNL(BTNL),
         .BTNR(BTNR),
         .BTND(BTND),

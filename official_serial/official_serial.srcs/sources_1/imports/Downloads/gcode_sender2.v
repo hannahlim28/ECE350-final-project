@@ -29,80 +29,59 @@ module gcode_sender(
     reg see_ready = 0;
     reg [8*64-1:0] startup = "\n0Z 0Y 0X 29G\n45G 49G 71G 12G 09G";
 
-    wire [7:0] xa0, xa1, xa2, xa3, xa4, xa5, xa6, xb0, xb1, xb2, xb3, xb4, xb5, xb6;
-    reg [7:0] x1_ascii [7:0];
-    reg [7:0] y1_ascii [7:0];
-    reg [7:0] x2_ascii [7:0];
-    reg [7:0] y2_ascii [7:0];
-    wire [7:0] ya0, ya1, ya2, ya3, ya4, ya5, ya6, yb0, yb1, yb2, yb3, yb4, yb5, yb6;
+    wire [7:0] xa0, xa1, xa2, xa3, xb0, xb1, xb2, xb3;
+    reg [3:0] x1_ascii [7:0];
+    reg [3:0] y1_ascii [7:0];
+    reg [3:0] x2_ascii [7:0];
+    reg [3:0] y2_ascii [7:0];
+    wire [7:0] ya0, ya1, ya2, ya3, yb0, yb1, yb2, yb3;
     reg [8*64-1:0] g_output1, g_output2;
     reg [8*4-1:0] z_value;
 
-    float_to_ascii x1_value(.val_100((xo)*100), 
+    float_to_ascii x1_value(.value(xo), 
                             .ch0(xa0), 
                             .ch1(xa1),
                             .ch2(xa2),
-                            .ch3(xa3),
-                            .ch4(xa4), 
-                            .ch5(xa5),
-                            .ch6(xa6));
-    float_to_ascii x2_value(.val_100((xt)*100), 
+                            .ch3(xa3));
+    float_to_ascii x2_value(.value(xt), 
                             .ch0(xb0), 
                             .ch1(xb1),
                             .ch2(xb2),
-                            .ch3(xb3),
-                            .ch4(xb4), 
-                            .ch5(xb5),
-                            .ch6(xb6));
-    float_to_ascii y1_value(.val_100((yo)*100), 
+                            .ch3(xb3));
+    float_to_ascii y1_value(.value(yo), 
                             .ch0(ya0), 
                             .ch1(ya1),
                             .ch2(ya2),
-                            .ch3(ya3),
-                            .ch4(ya4), 
-                            .ch5(ya5),
-                            .ch6(ya6));
-    float_to_ascii y2_value(.val_100((yt)*100), 
+                            .ch3(ya3));
+    float_to_ascii y2_value(.value(yt), 
                             .ch0(yb0), 
                             .ch1(yb1),
                             .ch2(yb2),
-                            .ch3(yb3),
-                            .ch4(yb4), 
-                            .ch5(yb5),
-                            .ch6(yb6));
+                            .ch3(yb3));
 
     always @(posedge clk) begin
         x1_ascii[0] <=xa0;
         x1_ascii[1] <=xa1;
         x1_ascii[2] <=xa2;
         x1_ascii[3] <=xa3;
-        x1_ascii[4] <=xa4;
-        x1_ascii[5] <=xa5;
-        x1_ascii[6] <=xa6;
+
 
         x2_ascii[0] <=xb0;
         x2_ascii[1] <=xb1;
         x2_ascii[2] <=xb2;
         x2_ascii[3] <=xb3;
-        x2_ascii[4] <=xb4;
-        x2_ascii[5] <=xb5;
-        x2_ascii[6] <=xb6;
-        
+
         y1_ascii[0] <=ya0;
         y1_ascii[1] <=ya1;
         y1_ascii[2] <=ya2;
         y1_ascii[3] <=ya3;
-        y1_ascii[4] <=ya4;
-        y1_ascii[5] <=ya5;
-        y1_ascii[6] <=ya6;
+
 
         y2_ascii[0] <=yb0;
         y2_ascii[1] <=yb1;
         y2_ascii[2] <=yb2;
         y2_ascii[3] <=yb3;
-        y2_ascii[4] <=yb4;
-        y2_ascii[5] <=yb5;
-        y2_ascii[6] <=yb6;
+
     end
     always @(*) begin
         case(intensity[1:0])
@@ -118,37 +97,25 @@ module gcode_sender(
     always @(posedge clk) begin
         g_output1 = {"\n0001F ", 
                     "2Z " , 
-                    y1_ascii[6],
-                    y1_ascii[5],
-                    y1_ascii[4],
                     y1_ascii[3],
                     y1_ascii[2],
                     y1_ascii[1],
                     y1_ascii[0],
                     "Y " , 
-                    x1_ascii[6],
-                    x1_ascii[5],
-                    x1_ascii[4],
                     x1_ascii[3],
                     x1_ascii[2],
                     x1_ascii[1],
                     x1_ascii[0],
                     "X 1G",
-                    "\n0001F 2Z 0G "};
+                    "\n0001F 2Z 0G"};
         g_output2 = {"\n2Z 0G","\n0001F ", 
                     z_value, 
                     "Z ", 
-                    y2_ascii[6],
-                    y2_ascii[5],
-                    y2_ascii[4],
                     y2_ascii[3],
                     y2_ascii[2],
                     y2_ascii[1],
                     y2_ascii[0],
                     "Y ", 
-                    x2_ascii[6],
-                    x2_ascii[5],
-                    x2_ascii[4],
                     x2_ascii[3],
                     x2_ascii[2],
                     x2_ascii[1],
@@ -193,7 +160,7 @@ module gcode_sender(
                         tx_data <= g_output1[8*index +: 8];
                         index <= index + 1;
                     end
-                    if(see_ready && index == 42)begin
+                    if(see_ready && index == 38)begin
                         state <= SENDG2;
                         index <= 0;
                     end
@@ -205,7 +172,7 @@ module gcode_sender(
                         index <= index + 1;
                         tx_data <= g_output2[8*index +: 8];
                     end
-                    if(see_ready && index == 55)begin
+                    if(see_ready && index == 50)begin
                         state <= IDLE;
                     end
                 end
