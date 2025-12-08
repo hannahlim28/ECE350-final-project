@@ -24,8 +24,6 @@ for seg in segments:
         if 0 <= x < WIDTH and 0 <= y < HEIGHT:
             grid[y][x] = "#"
 
-# Flip vertically so it looks correct
-grid.reverse()
 
 # Print it!
 for row in grid:

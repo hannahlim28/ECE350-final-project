@@ -81,38 +81,14 @@ static const int DIRS[8][2] = {
 
 LineArray edge_to_vect(int *edgemap, int rows, int cols);
 LineArray find_lines(LineArray *pixel_lists);
+void make_star(int *edge_map, int rows, int cols);
+int load_edge_map_mem(const char *filename, int *edge_map, int rows, int cols);
 
 int main() {
-    int rows = 200, cols = 200;
+    int rows = 100, cols = 100;
     int *edge_map = calloc(rows * cols, sizeof(int));
 
-    // Cloud circle centers and radii
-    struct { int cx, cy, r; } circles[] = {
-        {70,  100, 40},
-        {100,  70, 45},
-        {130, 100, 40},
-        {160, 120, 35},
-        {110, 140, 55}
-    };
-
-    int num_circles = sizeof(circles) / sizeof(circles[0]);
-
-    for (int i = 0; i < num_circles; i++) {
-        int cx = circles[i].cx;
-        int cy = circles[i].cy;
-        int r  = circles[i].r;
-
-        for (int y = cy - r - 1; y <= cy + r + 1; y++) {
-            for (int x = cx - r - 1; x <= cx + r + 1; x++) {
-                if (x >= 0 && x < cols && y >= 0 && y < rows) {
-                    double dist = sqrt((x - cx) * (x - cx) + (y - cy) * (y - cy));
-                    if (fabs(dist - r) < 0.7) {  // thin edge trace
-                        edge_map[y * cols + x] = 1;
-                    }
-                }
-            }
-        }
-    }
+    load_edge_map_mem("star.mem", edge_map, rows, cols);
     
 
     FILE *fedge = fopen("edge_map.txt", "w");
@@ -134,7 +110,6 @@ int main() {
     
     printf("Running edge_to_vect()...\n");
     LineArray raw_lines = edge_to_vect(edge_map, rows, cols);
-
     printf("Number of traced lines: %zu\n\n", raw_lines.size);
 
     for (size_t i = 0; i < raw_lines.size; i++) {
@@ -181,6 +156,38 @@ int main() {
 
     return 0;
 }
+int load_edge_map_mem(const char *filename, int *edge_map, int rows, int cols)
+{
+    FILE *fp = fopen(filename, "r");
+    if (!fp)
+    {
+        perror("fopen");
+        return 0;
+    }
+
+    for (int y = 0; y < rows; y++)
+    {
+        for (int x = 0; x < cols; x++)
+        {
+            int val;
+            if (fscanf(fp, "%2d", &val) != 1) // read 2-digit integers (00,01,10,11)
+            {
+                printf("Failed to read value at (%d,%d)\n", x, y);
+                fclose(fp);
+                return 0;
+            }
+
+            // Any non-zero means edge present
+            edge_map[y * cols + x] = (val != 0) ? 1 : 0;
+
+            // Skip optional space afterward
+            fgetc(fp);
+        }
+    }
+
+    fclose(fp);
+    return 1;
+}
 
 LineArray edge_to_vect(int *edgemap, int rows, int cols){
     LineArray line_list;
@@ -216,7 +223,7 @@ LineArray edge_to_vect(int *edgemap, int rows, int cols){
                         next.x = x + DIRS[d][0];
                         next.y = y + DIRS[d][1];
                         if(in_bounds(next.x, next.y, rows, cols)){
-                            if((edgemap[next.y*cols + next.x] == 1 && visited[next.y*cols+next.x] == 0) || (next.y == start.y && next.x == start.x)){
+                            if((edgemap[next.y*cols + next.x] == 1 && visited[next.y*cols+next.x] == 0)){
                                 PointArray_add(current_line, next);
                                 x = next.x;
                                 y = next.y;
@@ -230,30 +237,9 @@ LineArray edge_to_vect(int *edgemap, int rows, int cols){
                          endOfLine = 1;
                     }
                 }
-                while(backOfLine == 0){
-                    int badded = 0;
-                    for (int d = 8; d < 0; d--) {
-                        next.x = x + DIRS[d][0];
-                        next.y = y + DIRS[d][1];
-                        if(in_bounds(next.x, next.y, rows, cols)){
-                            if((edgemap[next.y*cols + next.x] == 1 && visited[next.y*cols+next.x] == 0) || (next.y == start.y && next.x == start.x)){
-                                PointArray_add(current_line, next);
-                                x = next.x;
-                                y = next.y;
-                                badded = 1;
-                                visited[next.y*cols +next.x] = 1;
-                                break;
-                            }
-                        }   
-                    }
-                    if(badded == 0){
-                         backOfLine = 1;
-                    }
-                }
                 start.x = -1;
                 start.y = -1;
                 endOfLine = 0;
-                backOfLine = 0;
             }
         }
     }
@@ -286,12 +272,14 @@ LineArray find_lines(LineArray *pixel_lists){
             int dy2 = p2.y - p1.y;
             if(dx1 != dx2 || dy1 != dy2){
                 PointArray_add(current_line, p1);
-
-                PointArray new_segment;
-                PointArray_init(&new_segment);
-                PointArray_add(&new_segment, p1);
-                LineArray_add(&segments, &new_segment);
-                current_line = &segments.lines[segments.size - 1];
+                if(j+2 < pixel_lists -> lines[i].size){
+                    PointArray new_segment;
+                    PointArray_init(&new_segment);
+                    PointArray_add(&new_segment, p1);
+                    LineArray_add(&segments, &new_segment);
+                    current_line = &segments.lines[segments.size - 1];
+                }
+                
             }
         }
     }
