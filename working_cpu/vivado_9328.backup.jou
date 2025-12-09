@@ -1,0 +1,27 @@
+#-----------------------------------------------------------
+# Vivado v2021.1 (64-bit)
+# SW Build 3247384 on Thu Jun 10 19:36:33 MDT 2021
+# IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
+# Start of session at: Tue Dec  9 14:09:36 2025
+# Process ID: 9328
+# Current directory: C:/Users/rm519/Documents/working_cpu
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent10400 C:\Users\rm519\Documents\working_cpu\working_cpu.xpr
+# Log file: C:/Users/rm519/Documents/working_cpu/vivado.log
+# Journal file: C:/Users/rm519/Documents/working_cpu\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/rm519/Documents/working_cpu/working_cpu.xpr
+launch_simulation
+launch_simulation
+launch_simulation
+open_wave_config C:/Users/rm519/Documents/working_cpu/working_cpu.srcs/sim_1/imports/rm519/Desktop/ece350-cpu/wrapper_tb_behav.wcfg
+source Wrapper_tb.tcl
+run all
+run all
+close_sim
+launch_simulation
+open_wave_config C:/Users/rm519/Documents/working_cpu/working_cpu.srcs/sim_1/imports/rm519/Desktop/ece350-cpu/wrapper_tb_behav.wcfg
+source Wrapper_tb.tcl
+run all
+run all
+close_sim

@@ -1,0 +1,15 @@
++--------------------------+--------------------------+----------------------------------------------------------------------------------------------------------+
+|       Launch Clock       |      Capture Clock       |                                                 Pin                                                      |
++--------------------------+--------------------------+----------------------------------------------------------------------------------------------------------+
+|     clk_out1_clk_wiz_1_1 |       clk_out1_clk_wiz_1 |                                                                                    CPU/pc_reg[12]/q_reg/D|
+|     clk_out1_clk_wiz_1_1 |       clk_out1_clk_wiz_1 |                                                                                    CPU/pc_reg[21]/q_reg/D|
+|     clk_out1_clk_wiz_1_1 |       clk_out1_clk_wiz_1 |                                                                                    CPU/pc_reg[20]/q_reg/D|
+|     clk_out1_clk_wiz_1_1 |       clk_out1_clk_wiz_1 |                                                                                     CPU/pc_reg[1]/q_reg/D|
+|     clk_out1_clk_wiz_1_1 |       clk_out1_clk_wiz_1 |                                                                                     CPU/pc_reg[8]/q_reg/D|
+|     clk_out1_clk_wiz_1_1 |       clk_out1_clk_wiz_1 |                                                                                     CPU/pc_reg[9]/q_reg/D|
+|     clk_out1_clk_wiz_1_1 |       clk_out1_clk_wiz_1 |                                                                                     CPU/pc_reg[4]/q_reg/D|
+|     clk_out1_clk_wiz_1_1 |       clk_out1_clk_wiz_1 |                                                                                     CPU/pc_reg[0]/q_reg/D|
+|     clk_out1_clk_wiz_1_1 |       clk_out1_clk_wiz_1 |                                                                                     CPU/pc_reg[2]/q_reg/D|
+|     clk_out1_clk_wiz_1_1 |       clk_out1_clk_wiz_1 |                                                                                    CPU/pc_reg[16]/q_reg/D|
+|     clk_out1_clk_wiz_1_1 |       clk_out1_clk_wiz_1 |                                                                                     CPU/pc_reg[3]/q_reg/D|
++--------------------------+--------------------------+----------------------------------------------------------------------------------------------------------+

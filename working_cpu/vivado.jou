@@ -1,0 +1,137 @@
+#-----------------------------------------------------------
+# Vivado v2021.1 (64-bit)
+# SW Build 3247384 on Thu Jun 10 19:36:33 MDT 2021
+# IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
+# Start of session at: Tue Dec  9 15:10:52 2025
+# Process ID: 9908
+# Current directory: C:/Users/rm519/Documents/working_cpu
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent9596 C:\Users\rm519\Documents\working_cpu\working_cpu.xpr
+# Log file: C:/Users/rm519/Documents/working_cpu/vivado.log
+# Journal file: C:/Users/rm519/Documents/working_cpu\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/rm519/Documents/working_cpu/working_cpu.xpr
+launch_simulation
+open_wave_config C:/Users/rm519/Documents/working_cpu/working_cpu.srcs/sim_1/imports/rm519/Desktop/ece350-cpu/wrapper_tb_behav.wcfg
+source Wrapper_tb.tcl
+run all
+run all
+close_sim
+launch_simulation
+open_wave_config C:/Users/rm519/Documents/working_cpu/working_cpu.srcs/sim_1/imports/rm519/Desktop/ece350-cpu/wrapper_tb_behav.wcfg
+source Wrapper_tb.tcl
+run all
+run all
+close_sim
+launch_simulation
+open_wave_config C:/Users/rm519/Documents/working_cpu/working_cpu.srcs/sim_1/imports/rm519/Desktop/ece350-cpu/wrapper_tb_behav.wcfg
+source Wrapper_tb.tcl
+run all
+run all
+close_sim
+launch_simulation
+open_wave_config C:/Users/rm519/Documents/working_cpu/working_cpu.srcs/sim_1/imports/rm519/Desktop/ece350-cpu/wrapper_tb_behav.wcfg
+source Wrapper_tb.tcl
+run all
+run all
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/working_cpu/working_cpu.runs/impl_1/Wrapper.bit} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/working_cpu/working_cpu.runs/impl_1/Wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+close_sim
+launch_simulation
+open_wave_config C:/Users/rm519/Documents/working_cpu/working_cpu.srcs/sim_1/imports/rm519/Desktop/ece350-cpu/wrapper_tb_behav.wcfg
+source Wrapper_tb.tcl
+run all
+run all
+run all
+close_sim
+launch_simulation
+open_wave_config C:/Users/rm519/Documents/working_cpu/working_cpu.srcs/sim_1/imports/rm519/Desktop/ece350-cpu/wrapper_tb_behav.wcfg
+source Wrapper_tb.tcl
+run all
+run all
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/working_cpu/working_cpu.runs/impl_1/Wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/working_cpu/working_cpu.runs/impl_1/Wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/working_cpu/working_cpu.runs/impl_1/Wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/working_cpu/working_cpu.runs/impl_1/Wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+relaunch_sim
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/working_cpu/working_cpu.runs/impl_1/Wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+relaunch_sim
+disconnect_hw_server localhost:3121
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/working_cpu/working_cpu.runs/impl_1/Wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {C:/Users/rm519/Documents/working_cpu/working_cpu.runs/impl_1/Wrapper.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+close_hw_manager
+add_files -norecurse C:/Users/rm519/Desktop/raster3.mem
+save_wave_config {C:/Users/rm519/Documents/working_cpu/working_cpu.srcs/sim_1/imports/rm519/Desktop/ece350-cpu/wrapper_tb_behav.wcfg}
+close_sim
+launch_simulation
+open_wave_config C:/Users/rm519/Documents/working_cpu/working_cpu.srcs/sim_1/imports/rm519/Desktop/ece350-cpu/wrapper_tb_behav.wcfg
+source Wrapper_tb.tcl
+run all
+run all
+run all
+relaunch_sim
+run all
+run all
+run all
+save_wave_config {C:/Users/rm519/Documents/working_cpu/working_cpu.srcs/sim_1/imports/rm519/Desktop/ece350-cpu/wrapper_tb_behav.wcfg}
+close_sim

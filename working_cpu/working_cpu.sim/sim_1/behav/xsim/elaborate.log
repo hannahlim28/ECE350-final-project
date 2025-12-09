@@ -1,0 +1,51 @@
+Vivado Simulator v2021.1
+Copyright 1986-1999, 2001-2021 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2021.1/bin/unwrapped/win64.o/xelab.exe -wto a521cee451ff41a08f6e21ef3b2d594e --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot Wrapper_tb_behav xil_defaultlib.Wrapper_tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 2 for port 'intensity' [C:/Users/rm519/Documents/working_cpu/working_cpu.srcs/sources_1/imports/Vivado Timing files/Wrapper_timing.v:154]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module unisims_ver.IBUF
+Compiling module unisims_ver.PLLE2_ADV(CLKFBOUT_MULT=33,CLKIN...
+Compiling module unisims_ver.BUFG
+Compiling module xil_defaultlib.clk_wiz_1_clk_wiz
+Compiling module xil_defaultlib.clk_wiz_1
+Compiling module xil_defaultlib.decode_6ops
+Compiling module xil_defaultlib.and32
+Compiling module xil_defaultlib.or32
+Compiling module xil_defaultlib.mux_2
+Compiling module xil_defaultlib.sll
+Compiling module xil_defaultlib.sra
+Compiling module xil_defaultlib.cla_4
+Compiling module xil_defaultlib.cla_32
+Compiling module xil_defaultlib.not32
+Compiling module xil_defaultlib.alu
+Compiling module xil_defaultlib.dffe_ref
+Compiling module xil_defaultlib.reg1
+Compiling module xil_defaultlib.count_16
+Compiling module xil_defaultlib.mux_2(WIDTH=33)
+Compiling module xil_defaultlib.mux_4(WIDTH=33)
+Compiling module xil_defaultlib.mux_8(WIDTH=33)
+Compiling module xil_defaultlib.carry_adder
+Compiling module xil_defaultlib.register(WIDTH=66)
+Compiling module xil_defaultlib.count_32
+Compiling module xil_defaultlib.register(WIDTH=64)
+Compiling module xil_defaultlib.multdiv
+Compiling module xil_defaultlib.processor_default
+Compiling module xil_defaultlib.ROM(MEMFILE="raster3.mem")
+Compiling module xil_defaultlib.decoder5to32
+Compiling module xil_defaultlib.regfile
+Compiling module xil_defaultlib.RAM(MEMFILE="grey.mem")
+Compiling module xil_defaultlib.button_send
+Compiling module xil_defaultlib.uart_transmit_default
+Compiling module xil_defaultlib.float_to_ascii
+Compiling module xil_defaultlib.gcode_sender_default
+Compiling module xil_defaultlib.sending_tx
+Compiling module xil_defaultlib.Wrapper
+Compiling module xil_defaultlib.Wrapper_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot Wrapper_tb_behav

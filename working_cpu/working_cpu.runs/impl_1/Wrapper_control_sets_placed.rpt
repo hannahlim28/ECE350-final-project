@@ -1,0 +1,140 @@
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.1 (win64) Build 3247384 Thu Jun 10 19:36:33 MDT 2021
+| Date         : Tue Dec  9 16:40:42 2025
+| Host         : P2-04 running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file Wrapper_control_sets_placed.rpt
+| Design       : Wrapper
+| Device       : xc7a100t
+------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |    62 |
+|    Minimum number of control sets                        |    62 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |    96 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |    62 |
+| >= 0 to < 4        |     5 |
+| >= 4 to < 6        |     5 |
+| >= 6 to < 8        |     2 |
+| >= 8 to < 10       |     4 |
+| >= 10 to < 12      |     0 |
+| >= 12 to < 14      |     0 |
+| >= 14 to < 16      |     0 |
+| >= 16              |    46 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |             170 |           92 |
+| No           | No                    | Yes                    |              11 |            8 |
+| No           | Yes                   | No                     |              27 |           14 |
+| Yes          | No                    | No                     |             527 |          249 |
+| Yes          | No                    | Yes                    |            1033 |          525 |
+| Yes          | Yes                   | No                     |             288 |          154 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++--------------------+-------------------------------------------------------+-------------------------------------------------------+------------------+----------------+--------------+
+|    Clock Signal    |                     Enable Signal                     |                    Set/Reset Signal                   | Slice Load Count | Bel Load Count | Bels / Slice |
++--------------------+-------------------------------------------------------+-------------------------------------------------------+------------------+----------------+--------------+
+|  pll/inst/clk_out1 |                                                       | CPU/m_busy_reg/clr0                                   |                1 |              1 |         1.00 |
+|  pll/inst/clk_out1 | serialsender/uut/tx_sdata                             | reset_IBUF                                            |                1 |              1 |         1.00 |
+|  pll/inst/clk_out1 |                                                       | CPU/dx_is_div_reg/start_div                           |                2 |              2 |         1.00 |
+|  pll/inst/clk_out1 |                                                       | CPU/dx_is_mult_reg/start_mult                         |                2 |              2 |         1.00 |
+|  clk_0             |                                                       |                                                       |                2 |              3 |         1.50 |
+|  clk_0             |                                                       | reset_IBUF                                            |                2 |              4 |         2.00 |
+|  pll/inst/clk_out1 | CPU/multdiv_unit/mult_mode/mult_reg_en                | CPU/dx_is_mult_reg/start_mult                         |                1 |              4 |         4.00 |
+|  pll/inst/clk_out1 |                                                       | serialsender/getting_gcode/start_up1                  |                2 |              4 |         2.00 |
+|  pll/inst/clk_out1 | serialsender/uut/bit_counter                          | reset_IBUF                                            |                1 |              4 |         4.00 |
+|  pll/inst/clk_out1 | CPU/multdiv_unit/div_mode/enable0                     | CPU/dx_is_div_reg/start_div                           |                3 |              5 |         1.67 |
+|  pll/inst/clk_out1 | serialsender/getting_gcode/state                      | reset_IBUF                                            |                2 |              6 |         3.00 |
+|  pll/inst/clk_out1 | serialsender/sending_button/tx_data[6]_i_1__0_n_0     |                                                       |                4 |              7 |         1.75 |
+|  pll/inst/clk_out1 | serialsender/getting_gcode/tx_data[7]_i_1_n_0         | reset_IBUF                                            |                5 |              8 |         1.60 |
+|  pll/inst/clk_out1 | serialsender/uut/shifted_data[7]_i_1_n_0              | reset_IBUF                                            |                3 |              8 |         2.67 |
+|  pll/inst/clk_out1 | serialsender/getting_gcode/index[8]_i_1_n_0           | reset_IBUF                                            |                4 |              9 |         2.25 |
+|  pll/inst/clk_out1 | serialsender/sending_button/index[8]_i_1__0_n_0       | reset_IBUF                                            |                4 |              9 |         2.25 |
+|  pll/inst/clk_out1 | serialsender/getting_gcode/buffer_counter[23]_i_2_n_0 | serialsender/getting_gcode/buffer_counter[23]_i_1_n_0 |                9 |             23 |         2.56 |
+|  pll/inst/clk_out1 |                                                       | reset_IBUF                                            |               13 |             25 |         1.92 |
+|  clk_0             | CPU/dx_valid_reg/xm_en                                | CPU/dx_valid_reg/q_reg_0                              |               18 |             31 |         1.72 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_3                              | reset_IBUF                                            |               12 |             32 |         2.67 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_6                              | reset_IBUF                                            |               11 |             32 |         2.91 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_23                             | reset_IBUF                                            |               15 |             32 |         2.13 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_24                             | reset_IBUF                                            |               10 |             32 |         3.20 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_14                             | reset_IBUF                                            |               19 |             32 |         1.68 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_25                             | reset_IBUF                                            |               13 |             32 |         2.46 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_27                             | reset_IBUF                                            |               15 |             32 |         2.13 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_22                             | reset_IBUF                                            |               16 |             32 |         2.00 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_30                             | reset_IBUF                                            |               27 |             32 |         1.19 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_28                             | reset_IBUF                                            |               18 |             32 |         1.78 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_2                              | reset_IBUF                                            |               26 |             32 |         1.23 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_29                             | reset_IBUF                                            |               21 |             32 |         1.52 |
+|  pll/inst/clk_out1 | CPU/xm_alu_result_reg[3]/q_reg_3[0]                   | reset_IBUF                                            |               13 |             32 |         2.46 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_5                              | reset_IBUF                                            |               25 |             32 |         1.28 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_21                             | reset_IBUF                                            |               15 |             32 |         2.13 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_19                             | reset_IBUF                                            |               16 |             32 |         2.00 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_13                             | reset_IBUF                                            |               16 |             32 |         2.00 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_17                             | reset_IBUF                                            |               19 |             32 |         1.68 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_16                             | reset_IBUF                                            |               15 |             32 |         2.13 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_20                             | reset_IBUF                                            |               18 |             32 |         1.78 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_18                             | reset_IBUF                                            |               10 |             32 |         3.20 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_26                             | reset_IBUF                                            |               25 |             32 |         1.28 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_11                             | reset_IBUF                                            |               19 |             32 |         1.68 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_10                             | reset_IBUF                                            |               10 |             32 |         3.20 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_4                              | reset_IBUF                                            |               15 |             32 |         2.13 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_8                              | reset_IBUF                                            |               19 |             32 |         1.68 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_9                              | reset_IBUF                                            |               15 |             32 |         2.13 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_7                              | reset_IBUF                                            |               12 |             32 |         2.67 |
+|  pll/inst/clk_out1 | CPU/multdiv_unit/ready_ff/q_reg_0                     | reset_IBUF                                            |               23 |             32 |         1.39 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_12                             | reset_IBUF                                            |               16 |             32 |         2.00 |
+|  pll/inst/clk_out1 | CPU/xm_alu_result_reg[3]/E[0]                         | reset_IBUF                                            |               19 |             32 |         1.68 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_0                              | reset_IBUF                                            |                7 |             32 |         4.57 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_1                              | reset_IBUF                                            |               12 |             32 |         2.67 |
+|  pll/inst/clk_out1 | CPU/mw_valid_reg/q_reg_15                             | reset_IBUF                                            |               11 |             32 |         2.91 |
+|  pll/inst/clk_out1 | CPU/xm_alu_result_reg[3]/q_reg_4[0]                   | reset_IBUF                                            |               18 |             33 |         1.83 |
+|  clk_0             | CPU/multdiv_unit/ready_ff/q_reg_1                     |                                                       |               15 |             35 |         2.33 |
+|  clk_0             | CPU/multdiv_unit/ready_ff/q_reg_0                     |                                                       |               22 |             62 |         2.82 |
+|  pll/inst/clk_out1 | CPU/multdiv_unit/div_mode/enable0                     |                                                       |               36 |             63 |         1.75 |
+|  pll/inst/clk_out1 | CPU/multdiv_unit/mult_mode/mult_reg_en                |                                                       |               34 |             64 |         1.88 |
+|  pll/inst/clk_out1 | CPU/m_busy_reg/latch_ops                              |                                                       |               29 |             64 |         2.21 |
+|  clk_0             | CPU/multdiv_unit/ready_ff/q_reg_1                     | CPU/fd_insn_reg[27]/q_reg_2                           |               57 |             92 |         1.61 |
+|  pll/inst/clk_out1 |                                                       |                                                       |               90 |            167 |         1.86 |
+|  clk_0             | CPU/dx_valid_reg/xm_en                                |                                                       |              109 |            232 |         2.13 |
++--------------------+-------------------------------------------------------+-------------------------------------------------------+------------------+----------------+--------------+
+
+

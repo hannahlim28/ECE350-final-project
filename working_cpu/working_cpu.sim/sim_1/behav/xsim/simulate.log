@@ -1,0 +1,8 @@
+Time resolution is 1 ps
+RUN @ 3996485000: y=x xs=x xe=x lvl=x
+RUN @ 3996565000: y=0 xs=x xe=x lvl=x
+RUN @ 3996645000: y=0 xs=0 xe=x lvl=x
+RUN @ 3996725000: y=0 xs=0 xe=0 lvl=x
+RUN @ 3996845000: y=0 xs=0 xe=0 lvl=3
+RUN @ 3996885000: y=0 xs=0 xe=0 lvl=3
+$finish called at time : 5 ms : File "C:/Users/rm519/Documents/working_cpu/working_cpu.srcs/sim_1/imports/rm519/Downloads/wrapper_tb.v" Line 88

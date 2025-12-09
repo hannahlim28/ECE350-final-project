@@ -1,0 +1,51 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  --include "../../../../working_cpu.gen/sources_1/ip/clk_wiz_0" --include "../../../../working_cpu.gen/sources_1/ip/clk_wiz_1_1" \
+"../../../../working_cpu.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_clk_wiz.v" \
+"../../../../working_cpu.gen/sources_1/ip/clk_wiz_0/clk_wiz_0.v" \
+"../../../../working_cpu.gen/sources_1/ip/clk_wiz_1_1/clk_wiz_1_clk_wiz.v" \
+"../../../../working_cpu.gen/sources_1/ip/clk_wiz_1_1/clk_wiz_1.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/Wrapper.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/PC.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/PC_tb.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/RAM.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/ROM.v" \
+"../../../../working_cpu.srcs/sources_1/imports/Vivado Timing files/Wrapper_timing.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/alu.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/and32.v" \
+"../../../../working_cpu.srcs/sources_1/imports/rm519/ECE350-final-project/official_serial/official_serial.srcs/sources_1/imports/Downloads/button_send.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/carry_adder.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/cla_32.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/cla_4.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/control.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/count_16.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/count_32.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/decode_6ops.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/decoder5to32.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/dffe_ref.v" \
+"../../../../working_cpu.srcs/sources_1/imports/rm519/ECE350-final-project/official_serial/official_serial.srcs/sources_1/imports/Downloads/float_to_ascii.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/full_adder.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/multdiv.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/mux_2.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/mux_32.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/mux_4.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/mux_8.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/not32.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/or32.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/processor.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/reg1.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/regfile.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/register.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/sll.v" \
+"../../../../working_cpu.srcs/sources_1/imports/proc/sra.v" \
+"../../../../working_cpu.srcs/sources_1/imports/rm519/ECE350-final-project/serialSendTest/serialSendTest.srcs/sources_1/imports/Downloads/uart_transmit.v" \
+"../../../../working_cpu.srcs/sources_1/imports/rm519/Downloads/sending_tx2.v" \
+"../../../../working_cpu.srcs/sources_1/imports/rm519/Downloads/gcode_sender4.v" \
+"../../../../working_cpu.srcs/sources_1/imports/rm519/Downloads/check_receive.v" \
+"../../../../working_cpu.srcs/sources_1/imports/rm519/Downloads/uart_receive.v" \
+"../../../../working_cpu.srcs/sim_1/imports/rm519/Downloads/wrapper_tb.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
