@@ -16,13 +16,13 @@ def in_bounds(x,y,H,W):
 
 def edge_to_vect(edge_map):
     R, C = edge_map.shape
-    visited = np.zeros_like(edge_map, dtype = bool)
+    # visited = np.zeros_like(edge_map, dtype = bool)
     pixel_follow = []
     for y in range(R):
         for x in range(C):
-            if(edge_map[y,x]== 1 and not visited[y, x]):
+            if(edge_map[y,x]== 1):
                 forwardpoly = [(x,y)]
-                visited[y,x] = 1
+                edge_map[y,x] = 0
                 px, py = x, y
                 while True:
                     found_next = False
@@ -30,10 +30,10 @@ def edge_to_vect(edge_map):
                         nx = px+dx
                         ny = py+dy
                         if(0<= nx < C and 0 <= ny < R):
-                            if(edge_map[ny,nx] == 1 and not visited[ny,nx]):
+                            if(edge_map[ny,nx] == 1):
                                 poly_points = (nx, ny)
                                 forwardpoly.append(poly_points)
-                                visited[ny, nx] = 1
+                                edge_map[ny, nx] = 0
                                 px, py = nx, ny
                                 found_next = True
                                 break
@@ -242,11 +242,50 @@ np.savetxt("edge_map.txt", edge_map, fmt="%d")
 first_list = edge_to_vect(edge_map)
 merge_list = merge_lines(first_list)
 doug = [douglas_peucker(poly, epsilon = 0.7) for poly in merge_list]
-print(doug)
+
 get_lines = find_lines(doug)
+# print(get_lines)
+output = [
+    [(50, 2), (62, 38)],
+    [(62, 38), (99, 38)],
+    [(99, 38), (69, 60)],
+    [(69, 60), (80, 94)],
+    [(80, 94), (79, 95)],
+    [(79, 95), (78, 93)],
+    [(78, 93), (75, 92)],
+    [(75, 92), (78, 91)],
+
+    [(49, 3), (50, 5)],
+    [(50, 5), (39, 38)],
+    [(39, 38), (4, 39)],
+    [(4, 39), (31, 59)],
+    [(31, 59), (28, 72)],
+    [(28, 72), (21, 91)],
+    [(21, 91), (23, 93)],
+    [(23, 93), (20, 95)],
+    [(20, 95), (21, 93)],
+
+    [(49, 4), (48, 7)],
+    [(51, 7), (51, 8)],
+    [(47, 9), (47, 10)],
+    [(52, 10), (52, 11)],
+    [(46, 12), (46, 13)],
+    [(53, 13), (53, 14)],
+    [(45, 15), (45, 16)],
+    [(54, 16), (54, 17)],
+    [(44, 18), (44, 19)],
+    [(55, 19), (55, 20)],
+    [(43, 21), (43, 22)],
+
+    [(57, 26), (57, 27)],
+    [(41, 28), (41, 29)],
+    [(58, 29), (58, 30)],
+]
+
 
 visualize_segments(get_lines)
 
+# print(merge_list)
 # print(edge_to_vect(edge_map))
 # print(find_lines(edge_to_vect(edge_map)))
 # visualize_segments(find_lines(douglas_peucker(merge_lines(edge_to_vect(edge_map)), 0.)))

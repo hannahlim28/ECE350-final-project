@@ -2,7 +2,23 @@
 triple:          'x86_64-apple-darwin'
 binary-path:     '/Users/hannahlim/Documents/ECE350/ECE350-final-project/checking_edge_to_vect'
 relocations:
-  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100000D40, symSize: 0x60 }
-  - { offsetInCU: 0x41, offset: 0x41, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100000D40, symSize: 0x60 }
-  - { offsetInCU: 0x6B, offset: 0x6B, size: 0x8, addend: 0x0, symName: _load_mem, symObjAddr: 0x60, symBinAddr: 0x100000DA0, symSize: 0x19D }
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _LineArray_init, symObjAddr: 0x0, symBinAddr: 0x100000BA0, symSize: 0x30 }
+  - { offsetInCU: 0x4D, offset: 0x4D, size: 0x8, addend: 0x0, symName: _DIRS, symObjAddr: 0x1310, symBinAddr: 0x100001EF0, symSize: 0x0 }
+  - { offsetInCU: 0x74, offset: 0x74, size: 0x8, addend: 0x0, symName: _LineArray_init, symObjAddr: 0x0, symBinAddr: 0x100000BA0, symSize: 0x30 }
+  - { offsetInCU: 0x98, offset: 0x98, size: 0x8, addend: 0x0, symName: _LineArray_add, symObjAddr: 0x30, symBinAddr: 0x100000BD0, symSize: 0xD0 }
+  - { offsetInCU: 0xE6, offset: 0xE6, size: 0x8, addend: 0x0, symName: _PointArray_free, symObjAddr: 0x100, symBinAddr: 0x100000CA0, symSize: 0x50 }
+  - { offsetInCU: 0x10A, offset: 0x10A, size: 0x8, addend: 0x0, symName: _LineArray_free, symObjAddr: 0x150, symBinAddr: 0x100000CF0, symSize: 0x80 }
+  - { offsetInCU: 0x14A, offset: 0x14A, size: 0x8, addend: 0x0, symName: _PointArray_init, symObjAddr: 0x1D0, symBinAddr: 0x100000D70, symSize: 0x30 }
+  - { offsetInCU: 0x16E, offset: 0x16E, size: 0x8, addend: 0x0, symName: _PointArray_add, symObjAddr: 0x200, symBinAddr: 0x100000DA0, symSize: 0xB0 }
+  - { offsetInCU: 0x1BC, offset: 0x1BC, size: 0x8, addend: 0x0, symName: _in_bounds, symObjAddr: 0x2B0, symBinAddr: 0x100000E50, symSize: 0x60 }
+  - { offsetInCU: 0x1F2, offset: 0x1F2, size: 0x8, addend: 0x0, symName: _reverse_point_array, symObjAddr: 0x310, symBinAddr: 0x100000EB0, symSize: 0x90 }
+  - { offsetInCU: 0x24E, offset: 0x24E, size: 0x8, addend: 0x0, symName: _perp_distance, symObjAddr: 0x3A0, symBinAddr: 0x100000F40, symSize: 0xB0 }
+  - { offsetInCU: 0x31E, offset: 0x31E, size: 0x8, addend: 0x0, symName: _edge_to_vect, symObjAddr: 0x450, symBinAddr: 0x100000FF0, symSize: 0x1E0 }
+  - { offsetInCU: 0x42A, offset: 0x42A, size: 0x8, addend: 0x0, symName: _merge_lines, symObjAddr: 0x630, symBinAddr: 0x1000011D0, symSize: 0x350 }
+  - { offsetInCU: 0x62E, offset: 0x62E, size: 0x8, addend: 0x0, symName: _douglas_peucker, symObjAddr: 0x980, symBinAddr: 0x100001520, symSize: 0x330 }
+  - { offsetInCU: 0x805, offset: 0x805, size: 0x8, addend: 0x0, symName: _doug_recurse, symObjAddr: 0xCB0, symBinAddr: 0x100001850, symSize: 0x90 }
+  - { offsetInCU: 0x897, offset: 0x897, size: 0x8, addend: 0x0, symName: _find_lines, symObjAddr: 0xD40, symBinAddr: 0x1000018E0, symSize: 0x210 }
+  - { offsetInCU: 0x9ED, offset: 0x9ED, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0xF50, symBinAddr: 0x100001AF0, symSize: 0x120 }
+  - { offsetInCU: 0xA5D, offset: 0xA5D, size: 0x8, addend: 0x0, symName: _load_mem, symObjAddr: 0x1070, symBinAddr: 0x100001C10, symSize: 0x1A0 }
+  - { offsetInCU: 0xB38, offset: 0xB38, size: 0x8, addend: 0x0, symName: _dump_line_array, symObjAddr: 0x1210, symBinAddr: 0x100001DB0, symSize: 0xED }
 ...
