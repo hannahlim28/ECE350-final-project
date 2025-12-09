@@ -1,5 +1,5 @@
 module uart_transmit #(
-    parameter CLK_HZ = 25_000_000,
+    parameter CLK_HZ = 100_000_000,
     parameter BAUD_RT = 115200,
     parameter DATA_BITS = 8
 )(

@@ -68,7 +68,7 @@ module sending_tx(
         .yo(yo),
         .yt(yt),
         .intensity(intensity),
-        .receive_ok(1'b1),
+        .receive_ok(ready_send),
         .g_send(g_send),
         .g_busy(g_busy),
         .clk(clk),

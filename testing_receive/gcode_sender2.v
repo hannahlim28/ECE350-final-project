@@ -26,7 +26,10 @@ module gcode_sender(
 
     reg [8:0] index = 0;
     reg first_cycle = 1'b1;
-    reg start_up = 1'b1;
+    reg start_up1 = 1'b1;
+    reg start_up2 = 1'b1;
+    reg start_up3 = 1'b1;
+    reg start_up4 = 1'b1;
     reg prev_ready = 0;
     reg see_ready = 0;
     reg [8*64-1:0] startup = "\n00.2Z 0G\n0Z 0Y 0X 29G\n45G 49G 71G 12G 09G";
@@ -40,6 +43,12 @@ module gcode_sender(
     reg [8*64-1:0] g_output1, g_output2, g_output3, g_output4;
     reg [8*4-1:0] z_value;
 
+    localparam CLK_HZ = 25_000_000;
+    localparam BUFFER_TM = 0.002;
+    localparam NUM_CYCLES = CLK_HZ * BUFFER_TM;
+    localparam NUM_CYCLES_BITS = $clog2(NUM_CYCLES);
+    reg [NUM_CYCLES_BITS -1:0] buffer_counter = 0;
+    
     float_to_ascii x1_value(.value(xo), 
                             .ch0(xa0), 
                             .ch1(xa1),
@@ -147,63 +156,70 @@ module gcode_sender(
                 IDLE: begin
                     index <=0;
                     if(g_send)begin
+                        buffer_counter <= 0;
                         state <= SENDG1;
                     end
                 end
                 SENDG1: begin
                     tx_valid <=0;
-                    while(index != 25)begin
+                    if(see_ready && index != 30)begin
                         if (see_ready) begin
                             tx_valid <= 1;
                             tx_data <= g_output1[8*index +: 8];
                             index <= index + 1;
                         end
-                    end
-                    if(receive_ok) begin
-                        start_up <= 1;
-                        state <= SENDG2;
+                    end else begin
+                        if(buffer_counter == NUM_CYCLES)begin
+                            buffer_counter <= 0;
+                            state <= SENDG2;
+                        end else begin
+                            buffer_counter <= buffer_counter +1;
+                        end
                     end
                 end
                 SENDG2: begin
                     tx_valid <=0;
-                    while(index != 20)begin
-                        if(see_ready) begin
-                            tx_valid<=1;
-                            index <= index + 1;
-                            tx_data <= g_output2[8*index +: 8];
+                    if(see_ready && index !=25) begin
+                        tx_valid<=1;
+                        index <= index + 1;
+                        tx_data <= g_output2[8*index +: 8];
+                    end else begin
+                        if(buffer_counter == NUM_CYCLES)begin
+                            buffer_counter <= 0;
+                            state <= SENDG3;
+                        end else begin
+                            buffer_counter <= buffer_counter +1;
                         end
-                    end
-                    if(receive_ok) begin
-                        start_up <= 1;
-                        state <= SENDG3;
                     end
                 end
                 SENDG3: begin
                     tx_valid <=0;
-                    while(index != 25)begin
-                        if(see_ready) begin
-                            tx_valid<=1;
-                            index <= index + 1;
-                            tx_data <= g_output3[8*index +: 8];
+                    if(see_ready && index != 30) begin
+                        tx_valid<=1;
+                        index <= index + 1;
+                        tx_data <= g_output3[8*index +: 8];
+                    end else begin
+                        if(buffer_counter == NUM_CYCLES)begin
+                            buffer_counter <= 0;
+                            state <= SENDG2;
+                        end else begin
+                            buffer_counter <= buffer_counter +1;
                         end
-                    end
-                    if(receive_ok) begin
-                        start_up <= 1;
-                        state <= SENDG4;
                     end
                 end
                 SENDG4: begin
                     tx_valid <=0;
-                    while(index != 10)begin
-                        if(see_ready) begin
-                            tx_valid<=1;
-                            index <= index + 1;
-                            tx_data <= g_output4[8*index +: 8];
+                    if(see_ready && index != 15) begin
+                        tx_valid<=1;
+                        index <= index + 1;
+                        tx_data <= g_output4[8*index +: 8];
+                    end else begin
+                        if(buffer_counter == NUM_CYCLES)begin
+                            buffer_counter <= 0;
+                            state <= IDLE;
+                        end else begin
+                            buffer_counter <= buffer_counter +1;
                         end
-                    end
-                    if(receive_ok) begin
-                        start_up <= 1;
-                        state <= IDLE;
                     end
                 end
             endcase
@@ -221,9 +237,18 @@ module gcode_sender(
         if(first_cycle && state == START) begin
             see_ready <= tx_ready;
             first_cycle <=0;
-        end else if(start_up && state != IDLE && state != START) begin
+        end else if(start_up1 && state == SENDG1) begin
             see_ready <= tx_ready;
-            start_up <= 0;
+            start_up1 <= 0;
+        end else if(start_up2 && state == SENDG2) begin
+            see_ready <= tx_ready;
+            start_up2 <= 0;
+        end else if(start_up3 && state == SENDG3) begin
+            see_ready <= tx_ready;
+            start_up3 <= 0;
+        end else if(start_up4 && state == SENDG4) begin
+            see_ready <= tx_ready;
+            start_up4 <= 0;
         end
         else begin
             see_ready <= ~prev_ready & tx_ready;

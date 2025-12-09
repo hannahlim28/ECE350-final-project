@@ -1,5 +1,5 @@
 module uart_receive  #(
-    parameter CLK_HZ = 25_000_000,
+    parameter CLK_HZ = 100_000_000,
     parameter BAUD_RT = 115200,
     parameter DATA_BITS = 8
 )(
@@ -44,14 +44,18 @@ always @(posedge clk) begin
                 end
             end
             START: begin
-                if(cycle_counter == (HALF_BAUD -1))begin
-                    if(rx == 0)begin
+                if(cycle_counter >= (HALF_BAUD - 1))begin
+                    if(cycle_counter == (CYCLES_PER_BIT-1))begin
                         cycle_counter<=0;
                         bit_count <= 0;
-                        state <= DATA;
+                        state <= DATA;   
                     end else begin
-                        state <= IDLE;
-                    end             
+                        if(rx!=0) begin
+                            state <= IDLE;
+                        end
+                        cycle_counter <= cycle_counter + 1;
+
+                    end            
                 end else begin
                     cycle_counter <= cycle_counter + 1;
                 end
