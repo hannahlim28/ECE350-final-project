@@ -51,18 +51,14 @@ module Wrapper_tb;
         .tx    (tx)
     );
 
-    // ----------------------------------------------------
     // 100 MHz clock into PLL
-    // ----------------------------------------------------
     initial begin
         clk   = 0;
     end
 
     always #5 clk = ~clk;   // 100 MHz (10 ns period)
 
-    // ----------------------------------------------------
     // Reset + buttons
-    // ----------------------------------------------------
     initial begin
         reset = 1'b0;
         BTNU  = 1'b0;
@@ -77,12 +73,10 @@ module Wrapper_tb;
         repeat(5) @(posedge clk);          // 200 ns
         BTNU = 1'b0;
         
-//        // buttons stay low for now
+    // buttons stay low for now
     end
 
-    // ----------------------------------------------------
     // Simulation time
-    // ----------------------------------------------------
     initial begin
         #5_000_000;   // 5 ms of simulation time
         $finish;
