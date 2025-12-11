@@ -161,7 +161,6 @@ module Wrapper (
         .busy(gcode_busy)); //sending wait signal
                 
 `ifndef SYNTHESIS
-  // Optional debug: show each run when control is written
   always @(posedge clock) begin
       if (mwe) begin
           $display("RUN @ %0t: y=%0d xs=%0d xe=%0d lvl=%0d",
