@@ -26,6 +26,7 @@ module button_send(
     // PULSE TO GET STARTED BUTTONS
     reg see_bup, prev_bup, see_ble, see_bri, see_bdo, prev_ble, prev_bri, prev_bdo;
     always @(posedge clk) begin
+        if(button_pending == 0) begin
         prev_bup <= BTNU;
         see_bup <= ~prev_bup & BTNU;
         prev_ble <= BTNL;
@@ -34,6 +35,7 @@ module button_send(
         see_bri <= ~prev_bri & BTNR;
         prev_bdo <= BTND;
         see_bdo <= ~prev_bdo & BTND;
+        end
     end
 
     // GRAB DIR AT FIRST PULSE
